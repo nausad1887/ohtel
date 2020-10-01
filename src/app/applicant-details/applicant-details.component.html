@@ -1,0 +1,102 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="applicantDetailsData">
+    <div class="container">
+        <div class="tabcabitem innertabcamb"> <a
+                routerLink='/{{applicantDetailsData.categoryName}}/{{applicantDetailsData.categoryID}}'>{{applicantDetailsData.categoryName}}</a>
+            /
+            <span>{{applicantDetailsData.categorytypeName}}</span> / <span>{{applicantDetailsData.subcatName}}</span>
+        </div>
+    </div>
+</div>
+
+<!--start services area-->
+<section id="about-area" class="" *ngIf="applicantDetailsData">
+    <div class="container">
+        <div class="row fabric-slider pb-4">
+            <div class="container-fluid">
+
+                <div style="margin-bottom: 3px;" class="text-center">
+                    <span class="imagebox">
+                        <img id="blah-b" [src]="userProfileUrl"
+                            onerror="this.src='assets/images/user-icon-transparent-6.jpg';" alt="profile">
+                    </span>
+                </div>
+                <div style="padding: 3px;" class="text-center" *ngIf="applicantDetailsData.postotherJobRole">
+                    <p style="font-size: 30px; margin: 0%;">{{applicantDetailsData.postotherJobRole | titlecase}}</p>
+                </div>
+                <div style="padding: 3px;" class="text-center"
+                    *ngIf="applicantDetailsData.postotherFirstName && applicantDetailsData.postotherLastName">
+                    <p style="font-size: 20px;margin: 0%;">
+                        {{applicantDetailsData.postotherFirstName + " " + applicantDetailsData.postotherLastName | titlecase}}
+                    </p>
+                </div>
+                <div style="padding: 3px;" class="text-center" *ngIf="applicantDetailsData.postLevel">
+                    <p style="font-size: 20px; margin: 0%;"><i style="margin-right: 4px;"
+                            class="fas fa-level-up-alt"></i>{{applicantDetailsData.postLevel | titlecase}}</p>
+                </div>
+                <div style="padding: 5px;" class="row text-center"
+                    *ngIf="applicantDetailsData.postotherYearExp || applicantDetailsData.educationName || applicantDetailsData.postotherSalary">
+                    <div class="col-4" *ngIf="applicantDetailsData.postotherYearExp">
+                        <h5><i style="margin-right: 3px;" class="fa fa-suitcase" aria-hidden="true"></i>
+                            {{applicantDetailsData.postotherYearExp}}</h5>
+                    </div>
+                    <div class="col-4" *ngIf="applicantDetailsData.educationName">
+                        <h5><i style="margin-right: 3px;" class="fa fa-graduation-cap"
+                                aria-hidden="true"></i>{{applicantDetailsData.educationName}}</h5>
+                    </div>
+                    <div class="col-4" *ngIf="applicantDetailsData.postotherSalary">
+                        <h5><i style="margin-right: 3px;"
+                                class="fas fa-rupee-sign"></i>{{applicantDetailsData.postotherSalary}}</h5>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-12 col-md-12">
+                <div class="text-muted mb-2" *ngIf="applicantDetailsData.cityName">Desired Job Location: <a href="#"><i
+                            class="fas fa-map-marker-alt"></i></a>&nbsp;
+                    {{applicantDetailsData.cityName}}</div>
+
+                <div class="hotel-detals-content cartpay-conten card">
+                    <div class="detailcontent">
+                        <p *ngIf="applicantDetailsData.postDescription">{{applicantDetailsData.postDescription + "."}}
+                        </p>
+
+
+                        <div class="client-comnt d-flex" *ngIf="applicantDetailsData.postCreatedDate">
+                            <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>
+                                {{applicantDetailsData.postCreatedDate | date}}</div>
+                        </div>
+                        <hr>
+                        <div class="posteby"
+                            *ngIf="applicantDetailsData.postMobile || applicantDetailsData.postAlternateNo || applicantDetailsData.postEmail">
+                            <h6>Contact Details:</h6>
+                            <p class="mb-0" *ngIf="applicantDetailsData.postMobile"><i style="margin-right: 3px;"
+                                    class="fa fa-phone" aria-hidden="true"></i><a
+                                    href="tel:+91 1245784578">{{applicantDetailsData.postMobileVerified.length === 3 ? ("+91" + " " + applicantDetailsData.postMobile) : ''}}</a>
+                            </p>
+                            <p class="mb-0" *ngIf="applicantDetailsData.postAlternateNo"><i style="margin-right: 3px;"
+                                    class="fa fa-phone" aria-hidden="true"></i><a
+                                    href="tel:+91 4578457823">{{ applicantDetailsData.postAlternateNoVerified.length === 3 ? ("+91" + " " + applicantDetailsData.postAlternateNo) : ''}}</a>
+                            </p>
+                            <p class="mb-0" *ngIf="applicantDetailsData.postEmail"><i style="margin-right: 3px;"
+                                    class="fas fa-at"></i><a
+                                    href="mailto:mihir@gmail.com">{{applicantDetailsData.postEmailVerified.length === 3 ? applicantDetailsData.postEmail : ''}}</a>
+                            </p>
+                        </div>
+                        <div class="text-center" *ngIf="imageUrlArr.length>0">
+                            <h6>Resume <button (click)="DownloadProfilePic(imageUrlArr)" download="imageUrlArr"><i
+                                        class="fa fa-download" aria-hidden="true"></i></button></h6>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <!-- <button class="btn btn-primary " (click)="openConfirmationPopUp()"  style="width: 250px;" >Confirm & Pay</button> -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--end servicrs area-->

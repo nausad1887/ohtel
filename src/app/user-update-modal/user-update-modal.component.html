@@ -1,0 +1,58 @@
+<div class="modal-header" style="padding-bottom: 0px;" *ngIf="labelData">
+  <h4 class="modal-title">{{labelData.Edit_profile}}</h4>
+  <button (click)="onClose()" class="close" aria-label="Close">
+    <span class="cursr" aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" style="padding-top: 8px;" *ngIf="labelData">
+  <div class="tab-logincontent">
+    <form id="ajax-contact" [formGroup]="updateUser" method="post" (ngSubmit)="checkUserDuplication(updateUser.value)"
+      novalidate="true">
+      <div class="form-group" *ngIf="labelData">
+        <input type="text" formControlName="userfirstName" id="firstName" name="userfirstName" class="form-control"
+          placeholder="{{labelData.First_name + '*'}}" required>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userfirstName'].hasError('required') && (updateUser.controls['userfirstName'].dirty || updateUser.controls['userfirstName'].touched)">
+          {{labelData.Please_enter_first_name}}</small>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userfirstName'].hasError('pattern') && (updateUser.controls['userfirstName'].dirty || updateUser.controls['userfirstName'].touched)">{{labelData.Please_enter_only_alphabet_characte_in_first_name}}</small>
+      </div>
+      <div class="form-group" *ngIf="labelData">
+        <input type="text" formControlName="userLastName" id="lastName" name="userLastName" class="form-control"
+          placeholder="{{labelData.Last_name + '*'}}" required>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userLastName'].hasError('required') && (updateUser.controls['userLastName'].dirty || updateUser.controls['userLastName'].touched)">{{labelData.Please_enter_last_name}}</small>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userLastName'].hasError('pattern') && (updateUser.controls['userLastName'].dirty || updateUser.controls['userLastName'].touched)">{{labelData.Pleas_enter_only_alphabet_characte_in_last_name}}</small>
+      </div>
+      <div class="form-group" *ngIf="labelData">
+        <input type="text" class="form-control" formControlName="userMobile" id="contactNumber" name="userMobile"
+          maxlength="10" pattern="[1-9]{1}[0-9]{9}" placeholder="{{labelData.Mobile_number + '*'}}" required>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userMobile'].hasError('required') && (updateUser.controls['userMobile'].dirty || updateUser.controls['userMobile'].touched)">Please
+          enter Mobile Number.</small>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userMobile'].hasError('pattern') && (updateUser.controls['userMobile'].dirty || updateUser.controls['userMobile'].touched)">{{labelData.Mobile_number_should_be_10_digit}}</small>
+        <small class="text-danger small" *ngIf="updateUser.controls['userMobile'].hasError('mobileExist')">Mobile
+          already
+          exist.</small>
+      </div>
+      <div class="form-group" *ngIf="labelData">
+        <input type="email" class="form-control" formControlName="userEmail" id="email" name="userEmail"
+          placeholder="{{labelData.Email}}" required>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userEmail'].hasError('required') && (updateUser.controls['userEmail'].dirty || updateUser.controls['userEmail'].touched)">{{labelData.Please_enter_Email_ID}}</small>
+        <small class="text-danger small"
+          *ngIf="updateUser.controls['userEmail'].hasError('pattern') && (updateUser.controls['userEmail'].dirty || updateUser.controls['userEmail'].touched)">{{labelData.Please_enter_valid_Email_ID}}</small>
+        <small class="text-danger small" *ngIf="updateUser.controls['userEmail'].hasError('emailAlreadyExist')">Email
+          already
+          exist.</small>
+      </div>
+      <div class="text-center" *ngIf="labelData">
+        <button class="btn login-submit-btn" [disabled]="updateUser.invalid" id="myForm" type="submit">
+          {{labelData.Edit}}</button>
+      </div>
+
+    </form>
+  </div>
+</div>

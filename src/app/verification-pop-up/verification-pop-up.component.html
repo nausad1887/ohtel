@@ -1,0 +1,167 @@
+<div class="container">
+  <div class="wrapper"><br>
+
+    <!-- this is for contact number -->
+    <div class="row ">
+      <div class="col-sm-12">
+        <ul class="list-group">
+          <li class="list-group-item border border-dark" *ngIf="show">
+            <p class="text-justify"> You need to verify your contact number if you need to display it on ad.
+            </p>
+            <div class="col-sm-6 float-left text-center ">
+              <button class="btn btn-link" (click)="onContactVerifyClick()">Ok,
+                Verify</button>
+              <button class="btn btn-link" (click)="cancelContactVerify()">Cancel</button>
+            </div>
+          </li>
+          <li class="list-group-item border border-dark" *ngIf="notShowContact"><a (click)="cancelContactVerify()"><i
+                style="float: right;" class="far fa-window-close"></i></a>
+            <p> Otp has been Sent to Your Contact Number {{postMobile.contactNumber}}</p>
+            <div>
+              <table>
+                <tbody [formGroup]="userMobileVerify">
+                  <tr>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="one" formControlName="one"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="two" formControlName="two"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="three" formControlName="three"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="four" formControlName="four"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-center margin">Haven't_received_code_yet_?<a class="cursr" style="color: blue;"
+                (click)="onResendContactClick()">Resend</a></p>
+            <div class="text-center">
+              <button type="button" [disabled]="userMobileVerify.invalid" style="width: 150px;"
+                class="btn btn-labeled btn-success  text-center"
+                (click)="onContactSubmitClick(userMobileVerify.value)"><span class="btn-label"><i
+                    class="glyphicon glyphicon-ok"></i></span>Submit</button>
+            </div>
+          </li>
+          <!-- <br> -->
+        </ul>
+      </div>
+    </div>
+    <!-- this is for alternateContactNumber -->
+    <div class="row ">
+      <div class="col-sm-12">
+        <ul class="list-group">
+          <li class="list-group-item border border-dark" *ngIf="show2">
+            <p class="text-justify"> You need to verify your Alternate contact number if you need to display
+              it on
+              ad.</p>
+            <div class="col-sm-6 float-left text-center ">
+              <button class="btn btn-link" (click)="onAlternateContactNumberVerify()">Ok,
+                Verify</button>
+              <button class="btn btn-link" (click)="cancelAlternateContactVerify()">Cancel</button>
+            </div>
+          </li>
+          <li class="list-group-item border border-dark" *ngIf="notShow2AlternateMobile"><a
+              (click)="cancelAlternateContactVerify()"><i style="float: right;" class="far fa-window-close"></i></a>
+            <p> Otp has been Sent to Your Alternate Contact Number
+              {{alternateContactNumber.alternateContactNumber}}
+            </p>
+            <div>
+              <table>
+                <tbody [formGroup]="userAlternateContactVerify">
+                  <tr>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="one" formControlName="one"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="two" formControlName="two"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="three" formControlName="three"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="four" formControlName="four"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+            </div>
+            <p class="text-center margin">Haven't_received_code_yet_?<a class="cursr" style="color: blue;"
+                (click)="onResendAltContactClick()">Resend</a></p>
+            <div class="text-center">
+              <button type="button" [disabled]="userAlternateContactVerify.invalid"
+                class="btn btn-labeled btn-success  text-center" style="width: 150px;"
+                (click)="onAltContactSubmitClick(userAlternateContactVerify.value)"><span class="btn-label"><i
+                    class="glyphicon glyphicon-ok"></i></span>Submit</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- this is for email -->
+    <div class="row">
+      <div class="col-sm-12">
+        <ul class="list-group">
+          <li class="list-group-item border border-dark" *ngIf="showEmail">
+            <p class="text-justify"> You need to verify your email if you need to display it on ad.</p>
+            <div class="col-sm-6 float-left text-center ">
+              <button class="btn btn-link" (click)="onEmailVerifyClick()">Ok,
+                Verify</button>
+              <button class="btn btn-link" (click)="cancelEmailVerify()">Cancel</button>
+            </div>
+          </li>
+          <li class="list-group-item border border-dark" *ngIf="notShowContactEmail"><a (click)="cancelEmailVerify()"><i
+                style="float: right;" class="far fa-window-close"></i></a>
+            <p> Otp has been Sent to Your Email-ID {{emailData.email}}</p>
+            <div>
+              <table>
+                <tbody [formGroup]="userEmailVerify">
+                  <tr>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="one" formControlName="one"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="two" formControlName="two"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="three" formControlName="three"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                    <td>
+                      <input class="form-control mobile-verify pass" name="four" formControlName="four"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="1" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-center margin">Haven't_received_code_yet_?<a class="cursr" style="color: blue;"
+                (click)="onResendEmailClick()">Resend</a></p>
+            <div class="text-center">
+              <button type="button" [disabled]="userEmailVerify.invalid" style="width: 150px;"
+                class="btn btn-labeled btn-success  text-center"
+                (click)="onEmailSubmitClick(userEmailVerify.value)"><span class="btn-label"><i
+                    class="glyphicon glyphicon-ok"></i></span>Submit</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

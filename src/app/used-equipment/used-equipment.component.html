@@ -1,0 +1,153 @@
+<!--start services area-->
+<section id="about-area" class="bg-light-gray">
+  <div class="container">
+    <div class="row pb-4">
+      <div class="col-lg-3 col-md-12" *ngIf="subCATEGORYLists$ | async as usedEquipment;">
+        <h5 class="titlecard" *ngIf="labelData.length>0"><a href="#" id="fiter-shomobile" class="d-md-none"><i
+              class="fas fa-filter"></i></a> &nbsp; {{labelData[0].Filter}} </h5>
+        <div class="cartpay-conten card mb-3 filter-section-left">
+          <div class="filter-section category">
+            <h5 class="titlecard" *ngIf="labelData.length>0">{{labelData[0].Catagories}}</h5>
+            <div class="chekgroup pt-2" *ngFor="let item of usedEquipment | sortSubCat | slice:0:show;">
+              <div class="custom-control custom-checkbox pb-3">
+                <input type="checkbox" class="custom-control-input" [checked]="item.subcatID === subCategoryId">
+                <label class="custom-control-label cursr" (click)="onChangeSubCat(item.subcatID)"> &nbsp;
+                  {{item.subcatName}}</label>
+              </div>
+            </div>
+            <div class="text-center">
+              <button (click)="show = usedEquipment.length" type="button" class="btn btn-link"
+                *ngIf="usedEquipment.length != show">More <i class="fas fa-chevron-down"></i></button>
+              <button (click)="show = 5" type="button" class="btn btn-link" *ngIf="usedEquipment.length === show">Less<i
+                  class="fas fa-chevron-up"></i></button>
+            </div>
+            <br>
+            <h5 class="titlecard" *ngIf="labelData.length>0">{{labelData[0].Location}}</h5>
+            <form class="navbar-form ">
+              <div class="form-group position-relative search-city" *ngIf="labelData.length>0">
+                <input class="form-control" (keyup)='keyUp.next($event)' placeholder="{{labelData[0].Search}}"
+                  type="text">
+                <span class="locationicon"><i class="fas fa-search"></i></span>
+              </div>
+              <div class="chekgroup" *ngIf="locationLists$ | async as locationList">
+                <div class="custom-control custom-checkbox pb-3"
+                  *ngFor="let item of locationList | search:'locationName':filterLocation">
+                  <input type="checkbox" [checked]="item.locationID === locationID" class="custom-control-input">
+                  <label class="custom-control-label cursr"
+                    (click)="onChangeLocation(item.locationID, item.locationName);"> &nbsp;
+                    {{item.locationName | titlecase}}
+                  </label>
+                </div>
+              </div>
+            </form>
+            <br *ngIf="categorytypeID === '6'">
+            <app-price-range-slider (price)="filterBYprice($event)" *ngIf="categorytypeID === '6'">
+            </app-price-range-slider>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-12" *ngIf="(subCATEGORYLists$ | async) === null;">
+        <app-filter-skeleton></app-filter-skeleton>
+      </div>
+      <div class="col-lg-9 col-md-12">
+        <div class="product-content">
+          <div class="filter-result-content mb-2">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="filter-labels mb-2" *ngIf="selectedFilterID.length>0">
+                  <span>Used Equipment</span>
+                  <span *ngFor="let selected of selectedFilterID; let i = index"
+                    class="lablesadd">{{selected.name | titlecase}}<a class="cursr" (click)=popOutLocation(i)>
+                      &times;</a></span>
+                </div>
+              </div>
+              <div class="col-md-4" *ngIf="subCategoryTypeLists$ | async as postTypeArray">
+                <ul class="nav nav-tabs tab-buyes-seller">
+                  <li *ngFor="let item of postTypeArray;" class="nav-item"><a
+                      (click)="onChangeType(item.categorytypeID, item.categorytypeName)" class="nav-link show"
+                      [class.active]="item.categorytypeID === categorytypeID" data-toggle="tab"
+                      href="#{{item.categorytypeName}}">{{item.categorytypeName | titlecase}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" *ngIf="viewPost$ | async as viewPost">
+            <div class="tab-pane " [class.active]="categorytypeID === '6'" id="Seller">
+              <div class="row" *ngIf="viewPost.length>0">
+                <div class="col-md-4 col-sm-6"
+                  *ngFor="let item of viewPost | viewpost | filterByPrice: priceFrom: priceTo | search:'locationName':searchTexts | paginate: { itemsPerPage: 9, currentPage: page }; trackBy: trackByFn">
+                  <div class="deals-items card product-items">
+                    <div class="deals-img">
+                      <a (click)="getPost(item)" routerLink="/post-details"><img
+                          src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                          onerror="this.src='assets/images/no-image.png';" class="" alt="Deals"></a>
+                    </div>
+                    <div class="deals-details">
+                      <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'"
+                        href="javascript:voild(0)"><i (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                      <p class="pr-3" *ngIf="item.postDescription">
+                        {{item.postDescription | truncate: 25 : false }}<a (click)="getPost(item)"
+                          routerLink="/post-details" *ngIf="item.postDescription.length > 25">more</a></p>
+                      <h4 class="mb-0" *ngIf="item.postotherPrice"><i class="fa fa-inr"
+                          aria-hidden="true"></i>{{item.postotherPrice | number : '1.0-0'}}
+                      </h4>
+                      <div class="text-muted mb-2" *ngIf="item.locationName">{{item.locationName}}
+                      </div>
+                      <div class="client-comnt d-flex">
+                        <div class="timer ">2200 sqft</div>
+                        <div class="ml-auto sheduald text-muted"><i
+                            class="far fa-clock"></i>{{item.postCreatedDate | date}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" [class.active]="categorytypeID === '5'" id="Buyer">
+              <div class="row" *ngIf="viewPost.length>0">
+                <div class="col-md-4 col-sm-6"
+                  *ngFor="let item of viewPost | viewpost | search:'locationName':searchTexts | paginate: { itemsPerPage: 9, currentPage: page }; trackBy: trackByFn">
+                  <div class="deals-items card product-items">
+                    <div class="deals-img">
+                      <a (click)="getPost(item)" routerLink="/post-details"><img
+                          src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                          onerror="this.src='assets/images/no-image.png';" class="" alt="Deals"></a>
+                    </div>
+                    <div class="deals-details">
+                      <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'"
+                        href="javascript:voild(0)"><i (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                      <p class="pr-3" *ngIf="item.postDescription">
+                        {{item.postDescription | truncate: 25 : false }}<a (click)="getPost(item)"
+                          routerLink="/post-details" *ngIf="item.postDescription.length > 25">more</a></p>
+                      <div class="text-muted mb-2" *ngIf="item.cityName">{{item.cityName}}
+                      </div>
+                      <div class="client-comnt d-flex">
+                        <div class="timer ">2200 sqft</div>
+                        <div class="ml-auto sheduald text-muted"><i
+                            class="far fa-clock"></i>{{item.postCreatedDate | date}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-skeleton *ngIf="(viewPost$ | async) === null"></app-skeleton>
+          <div class="container" *ngIf="(viewPost$ | async) === undefined">
+            <div style="height: 300px;">
+              <p class="text-center">No
+                Record Found</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pagination-controls style="text-align: center;" *ngIf="(viewPost$ | async)?.length > 9" (pageChange)="page = $event">
+  </pagination-controls>
+</section>
+<!--end servicrs area-->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

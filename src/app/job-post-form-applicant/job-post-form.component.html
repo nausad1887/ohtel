@@ -1,0 +1,404 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="routeObject">
+  <div class="container">
+    <div class="tabcabitem innertabcamb" *ngIf="labelData.length>0"> <a
+        routerLink="/post-ads">{{labelData[0].Add_post}}</a> / <span>{{labelData[0].Jobs}}</span> /
+      <span>{{routeObject.categorytypeName}}</span> / <span>{{routeObject.subCatName}}</span> /
+      <span>{{routeObject.postLevel}}</span> </div>
+  </div>
+</div>
+<!--start services area-->
+<section id="about-area" class="bg-light-gray" *ngIf="labelData.length>0 ; else notFound">
+  <div class="container">
+    <div class="row fabric-slider pb-4">
+      <div class="col-lg-8 col-md-12">
+        <div class="cartlist-conten card cartpay-conten">
+          <h5 class="titlecard">{{labelData[0].Post_details}}</h5>
+          <div class="unlisted-section">
+            <div class="tab-logincontent p-0">
+              <form id="ajax-contact" [formGroup]="applicantForm" action="index-loggedin.html" method="post">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <textarea type="text" class="form-control" name="postDescription" formControlName="postDescription"
+                      placeholder="{{labelData[0].Write_post_overview + '...'}}"></textarea>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['postDescription'].hasError('required') && (applicantForm.controls['postDescription'].dirty || applicantForm.controls['postDescription'].touched)">{{labelData[0].Please_write_post_overview}}</small>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="postotherFirstName" formControlName="userfirstName"
+                      name="postotherFirstName" placeholder="{{labelData[0].First_name + '*'}}" required>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['userfirstName'].hasError('required') && (applicantForm.controls['userfirstName'].dirty || applicantForm.controls['userfirstName'].touched)">{{labelData[0].Please_enter_first_name}}</small>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['userfirstName'].hasError('pattern') && (applicantForm.controls['userfirstName'].dirty || applicantForm.controls['userfirstName'].touched)">{{labelData[0].Please_enter_only_alphabet_characte_in_first_name}}</small>
+
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="postotherLastName" formControlName="userLastName"
+                      name="postotherLastName" placeholder="{{labelData[0].Last_name + '*'}}" required>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['userLastName'].hasError('required') && (applicantForm.controls['userLastName'].dirty || applicantForm.controls['userLastName'].touched)">{{labelData[0].Please_enter_last_name}}</small>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['userLastName'].hasError('pattern') && (applicantForm.controls['userLastName'].dirty || applicantForm.controls['userLastName'].touched)">{{labelData[0].Pleas_enter_only_alphabet_characte_in_last_name}}</small>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <input type="text" class="form-control" id="postotherJobRole" formControlName="postotherJobRole"
+                      name="postotherJobRole" placeholder="Job Role for Post (Optional)">
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="experianceList.length>0">
+                    <select name="userExperiance" formControlName="userExperiance"
+                      class="form-control custom-dropdown cursr" required>
+                      <option value="" disabled selected>{{labelData[0].Select_experience}}<span class="star">*</span>
+                      </option>
+                      <option *ngFor="let exp of experianceList" [value]="exp.experianceID">
+                        {{exp.experianceName}}</option>
+                    </select>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['userExperiance'].hasError('required') && (applicantForm.controls['userExperiance'].dirty || applicantForm.controls['userExperiance'].touched)">Please
+                      Select Experience.</small>
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="educationList.length>0">
+                    <select formControlName="userEducation" name="userEducation"
+                      class="form-control custom-dropdown cursr" required>
+                      <option value="" disabled selected>{{labelData[0].Select_education}}<span class="star">*</span>
+                      </option>
+                      <option *ngFor="let education of educationList" [value]="education.educationID">
+                        {{education.educationName}}</option>
+                    </select>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['userEducation'].hasError('required') && (applicantForm.controls['userEducation'].dirty || applicantForm.controls['userEducation'].touched)">Please
+                      Select Education.</small>
+                  </div>
+
+                  <div class="form-group col-md-8">
+                    <input type="text" class="form-control" id="postotherSalary" formControlName="postotherSalary"
+                      name="postotherSalary" placeholder="Current Salary (Optional)">
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['postotherSalary'].hasError('pattern')">Accept
+                      only
+                      numeric
+                      value.</small>
+                  </div>
+                  <div class="form-group col-md-8" *ngIf="cityList.length>0">
+                    <strong>{{labelData[0].Desired_job_location}}<span class="star">*</span></strong>
+                    <br>
+                    <mat-form-field>
+                      <mat-label>City</mat-label>
+                      <mat-select formControlName="selectedLocation" name="selectedLocation" multiple>
+                        <mat-option *ngFor="let city of cityList" [value]="city">
+                          {{city.cityName}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col-md-8">
+                    <div class="chekgroup d-flex">
+                      <div class="custom-control custom-checkbox pr-3">
+                        <input type="checkbox" formControlName="modeAnywhereIndia"
+                          (click)="onClickChangemodeAnywhereIndia($event.target.value)" class="custom-control-input"
+                          name="example1" value="Anywhere_in_India" id="india">
+                        <label class="custom-control-label cursr" for="india">{{labelData[0].Anywhere_in_india}}</label>
+                      </div>
+                      <div class="custom-control custom-checkbox pr-3">
+                        <input type="checkbox" formControlName="modeAnywhereAbroad"
+                          (click)="onClickChangemodeAnywhereAbroad($event.target.value)" class="custom-control-input"
+                          value="Anywhere_in_Abroad" name="example1" id="abroad">
+                        <label class="custom-control-label cursr"
+                          for="abroad">{{labelData[0].Anywhere_in_abroad}}</label>
+                      </div>
+                    </div>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['selectedLocation'].hasError('required') && (applicantForm.controls['selectedLocation'].dirty || applicantForm.controls['selectedLocation'].touched)">Please
+                      Select Prefered Job Location.</small>
+
+                  </div>
+
+                </div>
+                <hr class="unWantedMargin">
+
+                <h6 class="titlecard">{{labelData[0].Contact_details}}<span class="star">*</span></h6>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="contactNumber" formControlName="contactNumber"
+                      name="contactNumber" maxlength="10" pattern="[1-9]{1}[0-9]{9}"
+                      placeholder="{{labelData[0].Contact_number + '*'}}">
+                    <small class="text-danger small"
+                      *ngIf=" applicantForm.controls['contactNumber'].hasError('required') && (applicantForm.controls['contactNumber'].dirty || applicantForm.controls['contactNumber'].touched || applicantForm.controls['contactNumber'].untouched || applicantForm.controls['contactNumber'].pristine)">{{labelData[0].Please_enter_contact_number}}</small>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['contactNumber'].hasError('pattern') && (applicantForm.controls['contactNumber'].dirty || applicantForm.controls['contactNumber'].touched)">{{labelData[0].Mobile_Number_must_be_only_10_digit}}</small>
+
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="alternateContactNumber" maxlength="10"
+                      pattern="[1-9]{1}[0-9]{9}" formControlName="altcontactNumber" name="altcontactNumber"
+                      placeholder="{{labelData[0].Alternet_contact_number}}">
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['altcontactNumber'].hasError('pattern') && (applicantForm.controls['altcontactNumber'].dirty || applicantForm.controls['altcontactNumber'].touched)">{{labelData[0].Mobile_Number_must_be_only_10_digit}}</small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="email" class="form-control" id="email" name="email" formControlName="email"
+                      placeholder="{{labelData[0].Email_id}}">
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['email'].hasError('pattern') && (applicantForm.controls['email'].dirty || applicantForm.controls['email'].touched )">{{labelData[0].Please_enter_valid_Email_ID}}</small>
+                    <small class="text-danger small"
+                      *ngIf="applicantForm.controls['email'].hasError('required') && (applicantForm.controls['email'].dirty || applicantForm.controls['email'].touched || applicantForm.controls['email'].untouched || applicantForm.controls['email'].pristine)">{{labelData[0].Please_enter_Email_ID}}</small>
+                  </div>
+                  <small class="form-group col-md-12 text-danger small"
+                    *ngIf="applicantForm.controls['contactNumber'].hasError('emptyMobile') && applicantForm.controls['email'].hasError('emptyEmail')">{{labelData[0].You_should_write_Mobile_Number_or_Email_ID}}</small>
+                </div>
+
+                <h6 class="titlecard">{{labelData[0].Mode_of_contact}}<span class="star">*</span></h6>
+                <div class="chekgroup d-flex">
+                  <div class="custom-control custom-checkbox pr-3">
+                    <input type="checkbox" formControlName="modeMobile"
+                      (click)="onClickChangeModeMobile($event.target.value)" class="custom-control-input"
+                      name="example1" value="Mobile" id="mobile">
+                    <label class="custom-control-label cursr" for="mobile">{{labelData[0].Mobile}}</label>
+                  </div>
+                  <div class="custom-control custom-checkbox pr-3">
+                    <input type="checkbox" formControlName="modeEmail"
+                      (click)="onClickChangeModeEmail($event.target.value)" class="custom-control-input" value="Email"
+                      name="example1" id="emailid2">
+                    <label class="custom-control-label cursr" for="emailid2">{{labelData[0].Email}}</label>
+                  </div>
+                </div>
+                <small class="text-danger small"
+                  *ngIf="applicantForm.controls['modeMobile'].hasError('notSelectedMobile') && applicantForm.controls['modeEmail'].hasError('notSelectedEmail')">{{labelData[0].Please_select_mode_of_contact}}</small>
+                <hr>
+                <h6 class="titlecard">Upload Resume: (Optional)</h6>
+                <div class="upload-img-content">
+                  <ul>
+                    <li>
+                      <label class="customfile btn-primary cursr">Browse-files ...<i class="fa fa-upload"
+                          aria-hidden="true"></i>
+                        <input type="file" id="mediaFile" name="postResume" #mediaFileResume
+                          (change)="resumeAdded($event)"
+                          accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" required>
+                      </label>
+                      <br>
+                      <span *ngIf="fileName">{{fileName}}</span>
+                    </li>
+
+                  </ul>
+                </div>
+                <hr>
+                <h6 class="titlecard">{{labelData[0].Upload_images + "(Optional)"}}</h6>
+                <div class="upload-img-content">
+                  <ul>
+                    <li>
+                      <label class="customfile">
+                        <input type="file" multiple id="mediaFileImg" #mediaFile (change)="fileAdded($event)">
+                        <img class="cursr" src="assets/images/upload_picture_placeholder.png" alt="placeholer"
+                          accept="image/*">
+                      </label>
+                    </li>
+                    <span *ngIf="imgURL.length>0">
+                      <li *ngFor="let prewiew of imgURL; let i = index">
+                        <div class="uploded-img"><span class="close cursr" (click)="onClose(i)">&times;</span> <img
+                            [src]="prewiew" alt="">
+                        </div>
+                      </li>
+                    </span>
+                  </ul>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-12" [formGroup]="applicantForm">
+
+        <div class="cartpay-conten plan-section card mb-3">
+          <h5 class="titlecard">{{labelData[0].Select_plan}}<span class="star">*</span></h5>
+
+          <div class="custom-control custom-radio d-flex" *ngFor="let package of packageDetails; let ind = index;">
+            <input type="radio" formControlName="packageDetail" class="custom-control-input" id="radiox{{ind}}"
+              name="packageDetail" [value]=package>
+            <label class="custom-control-label" for="radiox{{ind}}">
+              <p class="mb-0">{{package.packagedetailName | titlecase}} </p>
+              <span class="text-muted">1 Buy Post | {{package.packagedetailDays +"days"}}</span>
+            </label>
+            <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i>
+                {{package.packagedetailFees}}</b></div>
+          </div>
+          <small class="text-danger small"
+            *ngIf="applicantForm.controls['packageDetail'].hasError('required') && (applicantForm.controls['packageDetail'].dirty || applicantForm.controls['packageDetail'].touched)">Please
+            Select Plan.</small>
+          <div class="bunowbutton text-center mb-2">
+            <button href="#" (click)="postSpaceAds(applicantForm.value)"
+              class="btn mt-2 d-block login-submit-btn checkout" data-toggle="modal"> <span
+                class="position-relative">{{labelData[0].Add_post}}</span></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <section id="about-area" class="bg-light-gray">
+    <div class="container">
+      <div class="row fabric-slider pb-4">
+        <div class="col-lg-8 col-md-12">
+          <div class="cartlist-conten card cartpay-conten">
+            <h5 class="titlecard"></h5>
+            <div class="unlisted-section">
+              <div class="tab-logincontent p-0">
+                <form id="ajax-contact" method="post">
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <textarea type="text" class="form-control" name="postDescription" placeholder=""></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="postotherFirstName" name="postotherFirstName"
+                        placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="postotherLastName" name="postotherLastName"
+                        placeholder="">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <input type="text" class="form-control" id="postotherJobRole" name="postotherJobRole"
+                        placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <select name="userExperiance" class="form-control custom-dropdown cursr">
+                        <option value="" disabled selected><span class="star">*</span></option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <select name="userEducation" class="form-control custom-dropdown cursr">
+                        <option value="" disabled selected><span class="star">*</span>
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                      <input type="text" class="form-control" id="postotherSalary" name="postotherSalary"
+                        placeholder="">
+                    </div>
+                    <div class="form-group col-md-8">
+                      <strong><span class="star">*</span></strong>
+                      <br>
+                      <mat-form-field>
+                        <mat-label></mat-label>
+                        <mat-select name="selectedLocation" multiple>
+                          <mat-option>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col-md-8">
+                      <div class="chekgroup d-flex">
+                        <div class="custom-control custom-checkbox pr-3">
+                          <input type="checkbox" class="custom-control-input" id="customCheck1" name="example1">
+                          <label class="custom-control-label" for="customCheck2"></label>
+                        </div>
+                        <div class="custom-control custom-checkbox pr-3">
+                          <input type="checkbox" class="custom-control-input" id="customCheck2" name="example1">
+                          <label class="custom-control-label" for="customCheck2"></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="unWantedMargin">
+                  <h6 class="titlecard"><span class="star">*</span></h6>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="alternateContactNumber" name="altcontactNumber"
+                        placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="">
+                    </div>
+                  </div>
+                  <h6 class="titlecard"><span class="star">*</span></h6>
+                  <div class="chekgroup d-flex">
+                    <div class="custom-control custom-checkbox pr-3">
+                      <input type="checkbox" class="custom-control-input" id="customCheck3" name="example1">
+                      <label class="custom-control-label" for="customCheck4"></label>
+                    </div>
+                    <div class="custom-control custom-checkbox pr-3">
+                      <input type="checkbox" class="custom-control-input" id="customCheck22" name="example1">
+                      <label class="custom-control-label" for="customCheck2"></label>
+                    </div>
+                  </div>
+                  <hr>
+                  <h6 class="titlecard"></h6>
+                  <div class="upload-img-content">
+                    <ul>
+                      <li>
+                        <label class="customfile btn-primary cursr"><i class="fa fa-upload" aria-hidden="true"></i>
+                          <input type="file" id="mediaFile" name="postResume" #mediaFileResume
+                            accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
+                        </label>
+                        <br>
+                      </li>
+                    </ul>
+                  </div>
+                  <hr>
+                  <h6 class="titlecard"></h6>
+                  <div class="upload-img-content">
+                    <ul>
+                      <li>
+                        <label class="customfile">
+                          <input type="file">
+                          <img src="assets/images/upload_picture_placeholder.png" alt="placeholer">
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="cartpay-conten plan-section card mb-3">
+            <h5 class="titlecard"></h5>
+            <div class="custom-control custom-radio d-flex">
+              <input type="radio" class="custom-control-input" id="customRadio" name="example1" value="customEx">
+              <label class="custom-control-label" for="customRadio">
+                <p class="mb-0"></p>
+                <span class="text-muted"></span>
+              </label>
+              <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i></b></div>
+            </div>
+            <div class="custom-control custom-radio d-flex">
+              <input type="radio" class="custom-control-input" id="customRadio2" name="example1" value="customEx">
+              <label class="custom-control-label" for="customRadio2">
+                <p class="mb-0"></p>
+                <span class="text-muted"></span>
+              </label>
+              <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i></b></div>
+            </div>
+            <div class="custom-control custom-radio d-flex">
+              <input type="radio" class="custom-control-input" id="customRadio3" name="example1" value="customEx">
+              <label class="custom-control-label" for="customRadio3">
+                <p class="mb-0"> </p>
+                <span class="text-muted"></span>
+              </label>
+              <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i></b></div>
+            </div>
+            <div class="bunowbutton text-center mb-2">
+              <a href="#" class="btn mt-2 d-block login-submit-btn checkout" data-toggle="modal"
+                data-target="#Verification"> <span class="position-relative"></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+
+
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

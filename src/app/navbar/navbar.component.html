@@ -1,0 +1,54 @@
+<!--start header-->
+<header id="header">
+  <div class="">
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+        <!--logo-->
+        <a class="logo" routerLink="/home"><img class="defult-logo" src="assets/images/logo.png" alt="logo" />
+          <img class="main-logo" src="assets/images/logo.png" alt="logo" /> </a>
+        <div class="search-content">
+          <a href="#" class="searchmobile d-lg-none"><i class="fas fa-map-marked-alt"></i></a>
+          <form class="navbar-form searchloacation" *ngIf="cityListArray.length>0">
+            <span class="locationicon "><i class="fas fa-map-marker-alt"></i></span>
+            <ng-select2 [data]="cityListArray" [(ngModel)]="cityID" name="cityID" [width]="150">
+            </ng-select2>
+            <input class="form-control search-box" (keyup)='keyUp.next($event)'
+              placeholder="Search spaces, used equipments, jobs, deals" type="text">
+            <span class="locationicon serarch-icon"><i class="fas fa-search"></i></span>
+          </form>
+        </div>
+        <div class="d-md-none">
+          <select [(ngModel)]="languageID" class="form-control languagedrop cursr">
+            <option *ngFor="let language of (languageLists$ | async)" [value]="language.languageID">
+              {{language.languageName}}</option>
+          </select>
+        </div>
+        <div class="d-md-none pl-2"><a class="nav-link text-white" href="#"><i class="fas fa-user"></i></a>
+        </div>
+        <div class="d-md-none"><a class="nav-link login-signup-btn" href="#" data-toggle="modal"
+            *ngIf="languageData.length>0">{{languageData[0].Add_post}}</a></div>
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <select class="form-control languagedrop cursr" [(ngModel)]="languageID">
+                <option *ngFor="let language of (languageLists$ | async)" [value]="language.languageID">
+                  {{language.languageName}}</option>
+              </select>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" (click)="openLoginModal()">Log in / Sign
+                up</a>
+            </li>
+            <li class="nav-item d-md-block d-none">
+              <a class="nav-link login-signup-btn" href="#" data-toggle="modal" routerLink="/post-ads"
+                *ngIf="languageData.length>0">{{languageData[0].Add_post}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<!--end header-->
+
+<!-- logedIn navbar -->

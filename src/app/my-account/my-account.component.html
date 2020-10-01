@@ -1,0 +1,181 @@
+<div class="sparettop"></div>
+<div class="tabcab">
+  <div class="container">
+    <div class="tabcabitem"><span style="font-weight:bold">My Account</span></div>
+  </div>
+</div>
+<!--start services area-->
+<section id="about-area" class="bg-light-gray" *ngIf="userInfo">
+  <div class="container">
+    <div class="row fabric-slider pb-4">
+      <div class="col-lg-3 col-md-12">
+        <div class="cartpay-conten plan-section card mb-3">
+          <div class="fi-profile-photo text-center profileupload">
+            <span class="imagebox">
+              <img id="blah-b" [src]="imageUrl != null ? imageUrl : defaultmyImgUrl" alt="">
+            </span>
+            <label for="file" class="fi-custom-upladfile">
+              <input type="file" id="file" accept="image/*" (change)="handleFileInput($event.target.files)"><span
+                class="editepen"><i class="fas fa-camera"></i></span>
+            </label>
+            <h5 class="pt-2">{{userInfo[0].userFirstName + " " + userInfo[0].userLastName | titlecase}}</h5>
+          </div>
+          <hr>
+          <div class="myAccount-tabs" *ngIf="labelData.length>0; else name">
+            <ul class="nav" role="tablist" id="myTab">
+              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#MyProfile" role="tab"
+                  aria-selected="true"><i class="fas fa-user mr-2"></i>
+                  {{labelData[0].My_profile}}</a></li>
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ChangePassword" role="tab"
+                  aria-selected="false"><i class="fas fa-lock mr-2"></i>
+                  {{labelData[0].Change_password}} </a></li>
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Settings" role="tab"
+                  aria-selected="false"><i class="fas fa-cogs mr-2"></i> {{labelData[0].Settings}}</a>
+              </li>
+            </ul>
+          </div>
+          <ng-template #name>
+            <div style="padding: 10px;" class="card-body text-center">
+              <p class="pr-3 card-text"></p>
+              <p class="card-text"></p>
+              <p class="card-text"></p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-12">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="MyProfile" role="tabpanel" aria-labelledby="home-tab">
+            <div class="cartlist-conten card cartpay-conten">
+              <h5 class="titlecard" *ngIf="labelData.length>0"><span
+                  style="font-weight:bold">{{labelData[0].My_profile}}</span> <a (click)="openUserupdateProfile()"
+                  class="float-right editemenu cursr"><i class="fas fa-pencil-alt"></i></a></h5>
+              <hr class="mt-0">
+              <div class="profile-saved">
+                <div class="d-flex" *ngIf="labelData.length>0">
+                  <p class="leftlabele">Full Name</p>
+                  <h6 class="">
+                    {{userInfo[0].userFirstName + " " + userInfo[0].userLastName | titlecase}}</h6>
+                </div>
+                <div class="d-flex" *ngIf="labelData.length>0 && userInfo[0].userMobile">
+                  <p class="leftlabele">{{labelData[0].Mobile_number}}</p>
+                  <h6 class="">
+                    {{(userInfo[0].userCountryCode ? userInfo[0].userCountryCode : '+91') + " " + userInfo[0].userMobile}}
+                  </h6>
+                  <h6 style="color: Dodgerblue; margin-left: 5px;" *ngIf="userVerified === 'Yes'"><i
+                      class="fa fa-check-circle" aria-hidden="true"></i></h6>
+                  <h6 *ngIf="userVerified === 'No'" class="" style="margin-left: 5px; color: red;"><i
+                      class="fa fa-times" aria-hidden="true"></i>
+                  </h6>
+                  <span *ngIf="userVerified === 'No'" style="margin-left: 40px; color: green; font-size: 17px;"
+                    class="link active_route cursr" (click)="userMobileVerification()">verify</span>
+                </div>
+                <div class="d-flex" *ngIf="labelData.length>0 && userInfo[0].userEmail">
+                  <p class="leftlabele">{{labelData[0].Email}}</p>
+                  <h6 class="">{{userInfo[0].userEmail}}</h6>
+                  <h6 style="color: Dodgerblue; margin-left: 5px;" *ngIf="emailVarified === 'Yes'"><i
+                      class="fa fa-check-circle" aria-hidden="true"></i></h6>
+                  <h6 *ngIf="emailVarified === 'No'" class="" style="margin-left: 5px; color: red;"><i
+                      class="fa fa-times" aria-hidden="true"></i></h6>
+                  <span *ngIf="emailVarified === 'No'" style="margin-left: 20px; color: green; font-size: 17px;"
+                    class="link active_route cursr" (click)="userEmailVerification()">verify</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="ChangePassword" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="cartlist-conten card cartpay-conten tab-logincontent">
+              <h5 class="titlecard" *ngIf="labelData.length>0"><span
+                  style="font-weight:bold">{{labelData[0].Change_password}}</span>
+              </h5>
+              <hr class="mt-0">
+              <form action="" [formGroup]="changePassword" (ngSubmit)="passwordUpdate(changePassword.value)"
+                method="post">
+                <div class="row">
+                  <div class="form-group col-md-8" *ngIf="labelData.length>0">
+                    <input type="password" class="form-control" id="oldPassword" formControlName="oldPassword"
+                      name="oldPassword" placeholder="{{labelData[0].Current_password}}" required>
+                    <small class="text-danger small"
+                      *ngIf="changePassword.controls['oldPassword'].hasError('required') && (changePassword.controls['oldPassword'].dirty || changePassword.controls['oldPassword'].touched)">{{labelData[0].Please_enter_current_password}}</small>
+                  </div>
+                  <div class="form-group col-md-8 inputWithIcon" *ngIf="labelData.length>0">
+                    <input type="password" [type]=" hide ? 'password' : 'text' " class="form-control" id="newPassword"
+                      formControlName="newPassword" (keydown.space)="$event.preventDefault()" name="newPassword"
+                      placeholder="{{labelData[0].New_password}}" required>
+                    <a class="cursr" (click)="myFunction()"><i class="fas "
+                        [ngClass]="{'fa-eye': !hide, 'fa-eye-slash': hide}"></i></a>
+                    <small class="text-danger small"
+                      *ngIf="changePassword.controls['newPassword'].hasError('required') && (changePassword.controls['newPassword'].dirty || changePassword.controls['newPassword'].touched)">{{labelData[0].Please_enter_new_password}}</small>
+                    <small class="text-danger small"
+                      *ngIf="changePassword.controls['newPassword'].hasError('confirmedValidatorOldAndCurrent')">{{labelData[0].New_password_and_current_password_should_not_be_same}}</small>
+                    <small class="text-danger small"
+                      *ngIf="changePassword.controls['newPassword'].hasError('minlength')">{{labelData[0].New_password_must_contain_4_to_16_character}}</small>
+                    <small class="text-danger small"
+                      *ngIf="changePassword.controls['newPassword'].hasError('maxlength')">{{labelData[0].New_password_must_contain_4_to_16_character}}</small>
+                  </div>
+                  <div class="form-group col-md-8" *ngIf="labelData.length>0">
+                    <input type="password" class="form-control" id="reEnterNewPassword"
+                      formControlName="reEnterNewPassword" name="reEnterNewPassword"
+                      placeholder="{{labelData[0].Re_enter_New_Password}}" required>
+                    <small class="text-danger small"
+                      *ngIf="changePassword.controls['reEnterNewPassword'].hasError('required') && (changePassword.controls['reEnterNewPassword'].dirty || changePassword.controls['reEnterNewPassword'].touched)">{{labelData[0].Please_enter_Re_enter_new_password}}</small>
+                    <small class="text-danger small"
+                      *ngIf="changePassword.controls['reEnterNewPassword'].hasError('confirmedValidator')">{{labelData[0].Re_enter_new_password_is_not_match}}</small>
+                  </div>
+                  <div class="bunowbutton text-center mb-2 d-flex col-md-5">
+                    <button class="btn mt-2 login-submit-btn checkout" [disabled]="changePassword.invalid" id="myForm"
+                      type="submit">Update</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="tab-pane" id="Settings" role="tabpanel" aria-labelledby="profile-tab" *ngIf="labelData.length>0">
+            <div class="cartlist-conten card cartpay-conten changepassword">
+              <h5 class="titlecard"><span style="font-weight:bold">{{labelData[0].Settings}}</span></h5>
+              <hr class="mt-0">
+              <form action="javascript:voild(0)" method="post">
+                <h5>{{labelData[0].Change_language}}</h5>
+                <div class="row m-0" *ngIf="languageList.length>0">
+                  <div class="custom-control custom-radio col-md-5 pb-3" *ngFor="let language of languageList">
+                    <input type="radio" class="custom-control-input"
+                      [checked]="userInfo[0].languageID === language.languageID" [value]="language.languageID"
+                      (change)="onChangeUserLanguage($event.target.value)" name="language{{languageID}}"
+                      id=language{{language.languageID}}>
+                    <label class="custom-control-label cursr" for="language{{language.languageID}}">
+                      <p class="mb-0">{{language.languageName | titlecase}} </p>
+                    </label>
+                  </div>
+                </div>
+                <hr>
+                <h5>{{labelData[0].Notification}}</h5>
+                <div class="row">
+                  <div class="form-group col-md-8 pushnotification-toggle">
+                    <div class="custom-switch">{{labelData[0].When_post_goes_live}}
+                      <label class="switch"><input type="checkbox" (change)="onChangePostGoesLive($event.target.value)"
+                          [checked]="userInfo[0].userpostGoesLive === 'Yes'" [value]="userInfo[0].userpostGoesLive"
+                          class="default"><span class="slider round"></span></label>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-8 pushnotification-toggle">
+                    <div class="custom-switch">{{labelData[0].System_notification}}
+                      <label class="switch"><input type="checkbox"
+                          [checked]="userInfo[0].usersystemNotification === 'Yes'"
+                          [value]="userInfo[0].usersystemNotification" class="default"
+                          (change)="onChangeSystemNotification($event.target.value)"><span
+                          class="slider round"></span></label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end servicrs area-->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

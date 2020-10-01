@@ -1,0 +1,105 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title"><img src="assets/images/logo -blue.png" alt="logo"></h4>
+    <button type="button" (click)="onClose()" class="close" data-dismiss="modal">&times;</button>
+  </div>
+  <div class="modal-body">
+    <div class="tab-logincontent pb-0 pt-0">
+      <div class="titleform">
+        <h4 class="mb-0" *ngIf="labelData.length>0">{{labelData[0].Create_your_account}}</h4>
+        <p *ngIf="labelData.length>0">{{labelData[0].Register_yourself_in_ohtel}}</p>
+      </div>
+      <form id="ajax-contact" [formGroup]="signForm" (ngSubmit)="checkUserDuplication(signForm.value)" method="post"
+        novalidate="true">
+        <div class="form-group" *ngIf="labelData.length>0">
+          <input type="text" class="form-control" id="userfirstName" formControlName="userfirstName"
+            name="userfirstName" placeholder="{{labelData[0].First_name + '*'}}" required>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userfirstName'].hasError('required') && (signForm.controls['userfirstName'].dirty || signForm.controls['userfirstName'].touched)">{{labelData[0].Please_enter_first_name}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userfirstName'].hasError('pattern') && (signForm.controls['userfirstName'].dirty || signForm.controls['userfirstName'].touched)">{{labelData[0].Please_enter_only_alphabet_characte_in_first_name}}</small>
+        </div>
+        <div class="form-group" *ngIf="labelData.length>0">
+          <input type="text" class="form-control" id="userLastName" formControlName="userLastName" name="userLastName"
+            placeholder="{{labelData[0].Last_name + '*'}}" required>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userLastName'].hasError('required') && (signForm.controls['userLastName'].dirty || signForm.controls['userLastName'].touched)">{{labelData[0].Please_enter_last_name}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userLastName'].hasError('pattern') && (signForm.controls['userLastName'].dirty || signForm.controls['userLastName'].touched)">{{labelData[0].Pleas_enter_only_alphabet_characte_in_last_name}}</small>
+        </div>
+        <div class="form-group mobile-withcountry position-relative" *ngIf="labelData.length>0">
+          <span class="flag-img"><img [src]="flag" alt="flag"></span>
+          <select name="userCountryCode" formControlName="userCountryCode" (change)="onChangeCode($event.target.value)"
+            class="countrycode custom-dropdown cursr" required>
+            <option class="option" *ngFor="let option of countryCodeOptions" [value]="option.code">
+              {{option.code}}</option>
+          </select>
+          <input type="text" class="form-control" id="userMobile" formControlName="userMobile" name="userMobile"
+            maxlength="10" pattern="[1-9]{1}[0-9]{9}" placeholder="{{labelData[0].Mobile_number + '*'}}">
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userMobile'].hasError('required') && (signForm.controls['userMobile'].dirty || signForm.controls['userMobile'].touched)">Please
+            enter Mobile Number.</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userMobile'].hasError('pattern') && (signForm.controls['userMobile'].dirty || signForm.controls['userMobile'].touched)">{{labelData[0].Mobile_number_should_be_10_digit}}</small>
+          <small class="text-danger small" *ngIf="signForm.controls['userMobile'].hasError('mobileExist')">Mobile
+            already
+            exist.</small>
+        </div>
+        <div class="form-group" *ngIf="labelData.length>0">
+          <input type="text" class="form-control" id="userEmail" formControlName="userEmail" name="userEmail"
+            placeholder="{{labelData[0].Email_id}}">
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userEmail'].hasError('required') && (signForm.controls['userEmail'].dirty || signForm.controls['userEmail'].touched)">{{labelData[0].Please_enter_Email_ID}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userEmail'].hasError('pattern') && (signForm.controls['userEmail'].dirty || signForm.controls['userEmail'].touched)">{{labelData[0].Please_enter_valid_Email_ID}}</small>
+          <small class="text-danger small" *ngIf="signForm.controls['userEmail'].hasError('emailAlreadyExist')">Email
+            already
+            exist.</small>
+          <small class="form-group text-danger small"
+            *ngIf="signForm.controls['userMobile'].hasError('emptyMobile') && signForm.controls['userEmail'].hasError('emptyEmail')">{{labelData[0].You_should_write_Mobile_Number_or_Email_ID}}</small>
+        </div>
+        <div class="form-group inputWithIcon" *ngIf="labelData.length>0">
+          <input type="password" [type]=" hide ? 'password' : 'text' " (keydown.space)="$event.preventDefault()"
+            formControlName="userPassword" class="form-control" id="userPassword" name="userPassword"
+            placeholder="{{labelData[0].Password + '*'}}" required>
+          <a class="cursr" (click)="myFunction()"><i class="fas "
+              [ngClass]="{'fa-eye': !hide, 'fa-eye-slash': hide}"></i></a>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userPassword'].hasError('required') && (signForm.controls['userPassword'].dirty || signForm.controls['userPassword'].touched)">{{labelData[0].Please_enter_password}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userPassword'].hasError('minlength')">{{labelData[0].Password_must_contain_4_to_16_character}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userPassword'].hasError('maxlength')">{{labelData[0].Password_must_contain_4_to_16_character}}</small>
+        </div>
+        <div class="form-group" *ngIf="labelData.length>0">
+          <input type="password" class="form-control" formControlName="userConfirmedPassword" id="userConfirmedPassword"
+            name="userConfirmedPassword" placeholder="{{labelData[0].Re_enter_password + '*'}}" required>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userConfirmedPassword'].hasError('required') && (signForm.controls['userConfirmedPassword'].dirty || signForm.controls['userConfirmedPassword'].touched)">{{labelData[0].Re_enter_password}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userConfirmedPassword'].hasError('minlength')">{{labelData[0].Password_must_contain_4_to_16_character}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userConfirmedPassword'].hasError('maxlength')">{{labelData[0].Password_must_contain_4_to_16_character}}</small>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['userConfirmedPassword'].hasError('confirmedValidator')">{{labelData[0].Re_enter_Password_is_not_match}}</small>
+        </div>
+        <div class="loginwith pb-3" *ngIf="labelData.length>0">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" formControlName="terms" id="customCheck" name="example1"
+              required>
+            <label class="custom-control-label cursr"
+              for="customCheck">{{labelData[0].By_continuing_you_agree_to_the}}<a
+                routerLink="/Terms-And-Condition">Terms &
+                Conditions</a></label>
+          </div>
+          <small class="text-danger small"
+            *ngIf="signForm.controls['terms'].hasError('required') && (signForm.controls['terms'].dirty || signForm.controls['terms'].touched)">{{labelData[0].Please_select_Terms_and_Conditions}}</small>
+        </div>
+        <div class="text-center">
+          <button class="btn login-submit-btn" id="myForm" type="submit"> Sign
+            Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

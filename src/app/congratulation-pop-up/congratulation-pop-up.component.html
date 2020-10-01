@@ -1,0 +1,22 @@
+<!--Congratulations Modal -->
+<!-- <ng-template #name> -->
+<!-- <div class="modal fade" id="Congratulations" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel" aria-hidden="true"> -->
+
+<div class="modal-header">
+  <h4 class="modal-title"></h4>
+  <button type="button" class="close" (click)="onClose()" data-dismiss="modal">&times;</button>
+</div>
+<div class="modal-body">
+  <div class="tab-logincontent pt-0 text-center">
+    <img src="assets/images/tick_congratulations.png" alt="Congratulations">
+    <a href="#">
+      <h4 class="mt-3">Congratulations!</h4>
+    </a>
+    <h6 class="mb-2">Your Ad is live now.</h6>
+    <p class="mb-0">
+      {{"It will stay live till " + (expiryDate | date: 'mediumDate') + ", " + expiryTime}}</p>
+  </div>
+</div>
+
+<!-- </div> -->
+<!-- </ng-template> -->

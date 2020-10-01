@@ -1,0 +1,133 @@
+<div class="modal-content" *ngIf="forgetPassword">
+  <div class="modal-header">
+    <h4 class="modal-title">{{labelData[0].OTP_verification}}</h4>
+    <button type="button" class="close" (click)="onClose()" data-dismiss="modal">&times;</button>
+  </div>
+  <div class="modal-body" *ngIf="labelData.length>0">
+    <div class="tab-logincontent pt-0">
+      <p *ngIf="usersData">{{usersData.message}}</p>
+      <p class="text-center">{{labelData[0].Havent_received_code_yet}}<a class="cursr" style="color: blue;"
+          (click)="onResendClick()">{{labelData[0].Resend}}</a></p>
+      <form id="ajax-contact" [formGroup]="userForgetPssVerify"
+        (ngSubmit)="onSubmitResetPasswordOTP(userForgetPssVerify.value)" method="post" novalidate="true">
+        <div class="form-group row formline">
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" formControlName="one" placeholder=" "
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" formControlName="two" placeholder=""
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" formControlName="three" placeholder=""
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" formControlName="four" placeholder=""
+              required>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn login-submit-btn" [disabled]="userForgetPssVerify.invalid" type="submit"
+            data-dismiss="modal" data-toggle="modal">
+            {{labelData[0].Submit}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-content" *ngIf="userMobile">
+  <div class="modal-header">
+    <h4 class="modal-title">{{labelData[0].OTP_verification}}</h4>
+    <button type="button" class="close" (click)="onClose()" data-dismiss="modal">&times;</button>
+  </div>
+  <div class="modal-body">
+    <div class="tab-logincontent pt-0">
+      <p class="text-center">{{userMobileData.message}}</p>
+      <p class="text-center">{{labelData[0].Havent_received_code_yet}}<a class="cursr" style="color: blue;"
+          (click)="onResendUserMobile()">{{labelData[0].Resend}}</a></p>
+      <form id="ajax-contact" [formGroup]="userMobileVerify" (ngSubmit)="onSubmitMobileOTP(userMobileVerify.value)"
+        method="post" novalidate="true">
+        <div class="form-group row formline">
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" formControlName="one" placeholder=" "
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" formControlName="two" placeholder=""
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" formControlName="three" placeholder=""
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" formControlName="four" placeholder=""
+              required>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn login-submit-btn" [disabled]="userMobileVerify.invalid" type="submit" data-dismiss="modal"
+            data-toggle="modal">
+            {{labelData[0].Submit}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-content" *ngIf="userEmail">
+  <div class="modal-header">
+    <h4 class="modal-title">{{labelData[0].OTP_verification}}</h4>
+    <button type="button" class="close" (click)="onClose()" data-dismiss="modal">&times;</button>
+  </div>
+  <div class="modal-body">
+    <div class="tab-logincontent pt-0">
+      <p class="text-center">{{userMobileData.message}}</p>
+      <p class="text-center">{{labelData[0].Havent_received_code_yet}}<a class="cursr" style="color: blue;"
+          (click)="onResendUserEmail()">{{labelData[0].Resend}}</a></p>
+      <form id="ajax-contact" [formGroup]="userEmailVerify" (ngSubmit)="onSubmitEmailOTP(userEmailVerify.value)"
+        method="post" novalidate="true">
+        <div class="form-group row formline">
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="one" formControlName="one" placeholder=" "
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="two" formControlName="two" placeholder=""
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="three" formControlName="three" placeholder=""
+              required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control mobile-verify pass" maxlength="1"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="four" formControlName="four" placeholder=""
+              required>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn login-submit-btn" [disabled]="userEmailVerify.invalid" type="submit" data-dismiss="modal"
+            data-toggle="modal">
+            {{labelData[0].Submit}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

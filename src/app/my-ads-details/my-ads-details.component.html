@@ -1,0 +1,93 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="spacesDetailsData">
+  <div class="container">
+    <div class="tabcabitem innertabcamb"> <a
+        routerLink='/{{spacesDetailsData.categoryName}}/{{spacesDetailsData.categoryID}}'>{{spacesDetailsData.categoryName}}</a>
+      /
+      <span>{{spacesDetailsData.categorytypeName}}</span> / <span>{{spacesDetailsData.subcatName}}</span></div>
+  </div>
+</div>
+
+<!--start services area-->
+<section id="about-area" class="bg-light-gray" *ngIf="spacesDetailsData">
+  <div class="container">
+    <div class="row fabric-slider pb-4">
+      <div class="col-lg-12 col-md-12">
+        <div class="hotel-detals-content cartpay-conten card">
+          <div class="imageslider" *ngIf="imageUrlArr.length>0 ; else defaultImg">
+            <owl-carousel-o [options]="customOptions">
+              <ng-template carouselSlide *ngFor="let image of imageUrlArr; let id = index" [id]="id">
+                <div class="image-items"><img [src]="image" (error)="handleImgError($event, id)" alt="hotel"></div>
+              </ng-template>
+            </owl-carousel-o>
+          </div>
+          <ng-template #defaultImg>
+            <div class="imageslider">
+              <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide *ngFor="let image of defaultImageUrl; let i = index" [id]="i">
+                  <div class="image-items"><img [src]="image" alt="hotel"></div>
+                </ng-template>
+              </owl-carousel-o>
+            </div>
+          </ng-template>
+          <div class="detailcontent">
+            <div class="d-flex">
+              <p><span style="font-weight:bold">Ad
+                  Id:{{' '+ spacesDetailsData.categoryName +''+  spacesDetailsData.postID}}</span></p>
+              <div class="favcontent ml-auto">
+                <a class="favorite inactiveLink position-relative"
+                  [class.favorited]="spacesDetailsData.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                    class="fas fa-heart"></i></a>
+                <span class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                      class="fas fa-ellipsis-v"></i></a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Report Ad</a>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <h4 class="mb-0" *ngIf="spacesDetailsData.postotherPrice"><i class="fas fa-rupee-sign"></i>
+              {{spacesDetailsData.postotherPrice | number}}</h4>
+            <p *ngIf="spacesDetailsData.postDescription">{{spacesDetailsData.postDescription + "."}}</p>
+            <div class="text-muted mb-2" *ngIf="spacesDetailsData.locationName"><a href="#"><i
+                  class="fas fa-map-marker-alt"></i></a>&nbsp;
+              {{spacesDetailsData.locationName ? spacesDetailsData.locationName : spacesDetailsData.cityName}}
+            </div>
+            <div class="text-muted mb-2" *ngIf="spacesDetailsData.postotherArea">
+              {{spacesDetailsData.postotherArea}}</div>
+            <div class="client-comnt d-flex">
+              <div class="timer " *ngIf="spacesDetailsData.categoryID == 11">2200 sqft</div>
+              <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>
+                {{spacesDetailsData.postCreatedDate | date}}</div>
+            </div>
+            <hr>
+            <div class="posteby">
+              <h6
+                *ngIf="labelData.length>0 && (spacesDetailsData.postotherOragnisation || spacesDetailsData.postotherContactPerson)">
+                {{labelData[0].Posted_by + ':'}}</h6>
+              <p *ngIf="spacesDetailsData.postotherOragnisation">
+                {{spacesDetailsData.postotherOragnisation | titlecase}}
+                <br><span
+                  *ngIf="spacesDetailsData.postotherContactPerson">{{spacesDetailsData.postotherContactPerson | titlecase}}</span>
+              </p>
+              <p class="mb-0" *ngIf="spacesDetailsData.postMobile"><a
+                  href="tel:+91 1245784578">{{spacesDetailsData.postMobileVerified.length === 3 ? ("+91" + " " + spacesDetailsData.postMobile) : ''}}</a>
+              </p>
+              <p class="mb-0" *ngIf="spacesDetailsData.postAlternateNo"><a
+                  href="tel:+91 4578457823">{{ spacesDetailsData.postAlternateNoVerified.length === 3 ? ("+91" + " " + spacesDetailsData.postAlternateNo) : ''}}</a>
+              </p>
+              <p class="mb-0"><a href="mailto:mihir@gmail.com"
+                  *ngIf="spacesDetailsData.postEmail">{{spacesDetailsData.postEmailVerified.length === 3 ? spacesDetailsData.postEmail : ''}}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end servicrs area-->
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

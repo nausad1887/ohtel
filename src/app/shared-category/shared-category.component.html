@@ -1,0 +1,47 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="labelData.length > 0; else dummyCat">
+  <div class="container">
+    <div class="main-listingmenu">
+      <ul class="row" *ngIf="categoryLists.length>0">
+        <li><a routerLink='/Spaces/11' routerLinkActive="active" class="d-flex align-items-center"><img
+              [src]="categoryLists[0].categoryScreenImage" alt="thumb"> <span
+              class="ml-2 mr-2">{{labelData[0].Spaces}}</span></a>
+        </li>
+        <li><a routerLink='/Used-Equipments/12' routerLinkActive="active" class="d-flex align-items-center"><img
+              [src]="categoryLists[1].categoryScreenImage" alt="thumb"> <span
+              class="ml-2 mr-2">{{labelData[0].Used_equipments}}</span></a></li>
+        <li><a routerLink='/Jobs/13' routerLinkActive="active" class="d-flex align-items-center"><img
+              [src]="categoryLists[2].categoryScreenImage" alt="thumb"> <span
+              class="ml-2 mr-2">{{labelData[0].Jobs}}</span></a></li>
+        <li><a routerLink='/Deals/14' routerLinkActive="active" class="d-flex align-items-center"><img
+              [src]="categoryLists[3].categoryScreenImage" alt="thumb"> <span class="ml-2 mr-2">Deals</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #dummyCat>
+  <div class="tabcab">
+    <div class="container">
+      <div class="">
+        <div class="row">
+          <div class="col-2">
+            <p class="card-text"> <span class="ml-2 mr-2"></span></p>
+          </div>
+          <div class="col-3">
+            <p class="card-text"> <span class="ml-2 mr-2"></span></p>
+          </div>
+          <div class="col-2">
+            <p class="card-text"> <span class="ml-2 mr-2"></span></p>
+          </div>
+          <div class="col-2">
+            <p class="card-text"> <span class="ml-2 mr-2"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- <router-outlet></router-outlet> -->

@@ -1,0 +1,206 @@
+<div class="sparettop"></div>
+<div class="tabcab">
+  <div class="container">
+    <div class="tabcabitem" *ngIf="labelData.length>0"><span style="font-weight:bold">{{labelData[0].Add_post}}</span>
+    </div>
+  </div>
+</div>
+<!--start services area-->
+<section id="about-area" class="bg-light-gray" *ngIf="labelData.length>0; else dummy">
+  <div class="container">
+    <div class="row fabric-slider pb-4">
+      <div class="col-lg-3 col-md-12">
+        <h5 class="titlecard">{{labelData[0].Catagories}}</h5>
+        <div class="cartpay-conten card mb-3">
+          <div class="tabmenu-custom">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Spaces">{{labelData[0].Spaces}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#UsedEquipments">{{labelData[0].Used_equipments}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link jobs-dropdwn cursr" data-toggle="dropdown"
+                  aria-expanded="false">{{labelData[0].Jobs}}
+                  <i class="fas fa-angle-right float-right"></i></a>
+                <div class="dropdown-menu dropdown-jobs">
+                  <ul class="nav nav-tabs" *ngIf="jobsTypeLists$ | async as typelist">
+                    <li *ngFor="let type of typelist" class="nav-item"><a class="nav-link"
+                        (click)="onChangeJobType(type.categorytypeID, type.categoryID); getType(type.categorytypeID, type.categorytypeName)"
+                        data-toggle="tab" href="#{{type.categorytypeName}}">{{type.categorytypeName}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Deals">Deals</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- dropdown-jobs #drop id="drop" -->
+      <div class="col-lg-9 col-md-12">
+        <div class="tab-content">
+          <div class="tab-pane active container" id="home">
+            <h5 class="titlecard">&nbsp;</h5>
+            <div class="cartlist-conten card cartpay-conten">
+              <div><img src="assets/images/post-ad.png" alt="Post ads img"></div>
+            </div>
+          </div>
+          <div class="tab-pane" id="Spaces">
+            <h5 class="titlecard">&nbsp;</h5>
+            <div class="cartlist-conten card cartpay-conten">
+              <div class="row" *ngIf="spaceSubCatLists$ | async as spaceCategory;">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 dropdown position-relative"
+                  *ngFor="let space of spaceCategory | sortSubCat">
+                  <a href="#" class="items-specs " data-toggle="dropdown">
+                    <div class="imgboxes" *ngIf="space.subcatImage"
+                      style="background-image:url(http://betaapplication.com/ohtel/backend/web/uploads/subcategory/{{space.subcatImage}});">
+                    </div>
+                    <div class="imgboxes" *ngIf="!space.subcatImage"
+                      style="background-image:url(assets/images/no-image.png);">
+                    </div>
+                    <div class="content-text">
+                      <h5>{{space.subcatName}}</h5>
+                    </div>
+                  </a>
+                  <div class="dropdown-menu dropdowncutom" *ngIf="spaceSubCatTypeLists$ | async as spacesTypeList;">
+                    <a class="dropdown-item" *ngFor="let spaceType of spacesTypeList"
+                      (click)="getCatData(space); getType(spaceType.categorytypeID, spaceType.categorytypeName)"
+                      routerLink="/post-form">{{spaceType.categorytypeName}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="UsedEquipments">
+            <h5 class="titlecard">&nbsp;</h5>
+            <div class="cartlist-conten card cartpay-conten">
+              <div class="row" *ngIf="usedEquipSubCatLists$ | async as usedEquipment;">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 dropdown position-relative"
+                  *ngFor="let equipment of usedEquipment | sortSubCat">
+                  <a href="#" class="items-specs " data-toggle="dropdown">
+                    <div class="imgboxes" *ngIf="equipment.subcatImage"
+                      style="background-image:url(http://betaapplication.com/ohtel/backend/web/uploads/subcategory/{{equipment.subcatImage}});">
+                    </div>
+                    <div class="imgboxes" *ngIf="!equipment.subcatImage"
+                      style="background-image:url(assets/images/no-image.png);">
+                    </div>
+                    <div class="content-text">
+                      <h5>{{equipment.subcatName}}</h5>
+                    </div>
+                  </a>
+                  <div class="dropdown-menu dropdowncutom"
+                    *ngIf="usedEquipTypeLists$ | async as usedEquipmentTypeList;">
+                    <a class="dropdown-item" *ngFor="let equipmentType of usedEquipmentTypeList"
+                      (click)="getCatData(equipment); getType(equipmentType.categorytypeID, equipmentType.categorytypeName)"
+                      routerLink="/used-equipment-form">{{equipmentType.categorytypeName}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="Recruiter">
+            <h5 class="titlecard">&nbsp;</h5>
+            <div class="cartlist-conten card cartpay-conten">
+              <div class="row" *ngIf="jobsSubCatLists$ | async as recruiterSubCat;">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 dropdown position-relative"
+                  *ngFor="let recruiter of recruiterSubCat | sortSubCat | jobsCat: categorytypeID">
+                  <a routerLink="/jobs-recruiter-form" class="items-specs " (click)="getCatData(recruiter)">
+                    <div class="imgboxes" *ngIf="recruiter.subcatImage"
+                      style="background-image:url(http://betaapplication.com/ohtel/backend/web/uploads/subcategory/{{recruiter.subcatImage}});">
+                    </div>
+                    <div class="imgboxes" *ngIf="!recruiter.subcatImage"
+                      style="background-image:url(assets/images/no-image.png);">
+                    </div>
+                    <div class="content-text">
+                      <h5><span>{{recruiter.subcatName}}</span></h5>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="Applicant">
+            <h5 class="titlecard">&nbsp;</h5>
+            <div class="cartlist-conten card cartpay-conten">
+              <div class="row" *ngIf="jobsSubCatLists$ | async as applicantSubCat;">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 dropdown position-relative"
+                  *ngFor="let applicant of applicantSubCat | sortSubCat | jobsCat: categorytypeID">
+                  <a href="#" class="items-specs " data-toggle="dropdown">
+                    <div class="imgboxes" *ngIf="applicant.subcatImage"
+                      style="background-image:url(http://betaapplication.com/ohtel/backend/web/uploads/subcategory/{{applicant.subcatImage}});">
+                    </div>
+                    <div class="imgboxes" *ngIf="!applicant.subcatImage"
+                      style="background-image:url(assets/images/no-image.png);">
+                    </div>
+                    <div class="content-text">
+                      <h5>{{applicant.subcatName}}</h5>
+                    </div>
+                  </a>
+                  <div class="dropdown-menu dropdowncutom" *ngIf="jobLevelLists$ | async as jobLevelList;">
+                    <a class="dropdown-item" *ngFor="let level of jobLevelList"
+                      (click)="getJobsRelatedData(level); getCatData(applicant)"
+                      routerLink="/job-post">{{level.subcategorylevelName}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="Deals">
+            <div class="cartlist-conten card cartpay-conten">
+              <div class="row" *ngIf="dealsSubCatLists$ | async as dealsCategory;">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 dropdown position-relative"
+                  *ngFor="let deal of dealsCategory | sortSubCat">
+                  <span *ngIf="dealsTypeLists$ | async as dealsTypeList;">
+                    <a routerLink="/deals-form" class="items-specs" *ngFor="let dealType of dealsTypeList"
+                      (click)="getCatData(deal); getType(dealType.categorytypeID, dealType.categorytypeName)">
+                      <div class="imgboxes" *ngIf="deal.subcatImage"
+                        style="background-image:url(http://betaapplication.com/ohtel/backend/web/uploads/subcategory/{{deal.subcatImage}});">
+                      </div>
+                      <div class="imgboxes" *ngIf="!deal.subcatImage"
+                        style="background-image:url(assets/images/no-image.png);">
+                      </div>
+                      <div class="content-text">
+                        <h5>{{deal.subcatName}}</h5>
+                      </div>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #dummy>
+  <section id="about-area" class="bg-light-gray">
+    <div class="container">
+      <div class="row fabric-slider pb-4">
+        <div class="col-lg-3 col-md-12">
+          <app-post-ads-skeleton></app-post-ads-skeleton>
+        </div>
+        <div class="col-lg-9 col-md-12">
+          <div class="tab-content">
+            <div class="tab-pane active container" id="home">
+              <h5 class="titlecard">&nbsp;</h5>
+              <div class="cartlist-conten card cartpay-conten">
+                <div><img src="assets/images/post-ad.png" alt="Post ads img"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<!--end servicrs area-->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

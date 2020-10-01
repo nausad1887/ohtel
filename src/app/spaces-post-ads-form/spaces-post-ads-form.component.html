@@ -1,0 +1,344 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="routeObject">
+  <div class="container">
+    <div class="tabcabitem innertabcamb"> <a routerLink="/post-ads">Post Ads</a> / <span>Spaces</span> /
+      <span>{{routeObject.categorytypeName}}</span> / <span>{{routeObject.subCatName}}</span> </div>
+  </div>
+</div>
+<!--start services area-->
+<section id="about-area" class="bg-light-gray" *ngIf="labelData.length>0; else dummyForm">
+  <div class="container">
+    <div class="row fabric-slider pb-4">
+      <div class="col-lg-8 col-md-12">
+        <div class="cartlist-conten card cartpay-conten">
+          <h5 class="titlecard">{{labelData[0].Post_details}}</h5>
+          <div class="unlisted-section">
+            <div class="tab-logincontent p-0">
+              <form id="ajax-contact" [formGroup]="postForm" method="post">
+                <div class="row ">
+                  <div class="form-group col-md-12 ">
+                    <textarea type="text" class="form-control " name="postDescription" formControlName="postDescription"
+                      placeholder="{{labelData[0].Write_post_overview + '...'}}" required></textarea>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['postDescription'].hasError('required') && (postForm.controls['postDescription'].dirty || postForm.controls['postDescription'].touched)">{{labelData[0].Please_write_post_overview}}</small>
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="cityList.length>0">
+                    <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline"
+                      placeholder="{{labelData[0].Select_city}}*" formControlName="city" (change)="onChangeCity($event)"
+                      labelForId="city" name="cityName">
+                      <ng-option *ngFor="let city of cityList" [value]="city.cityID">{{city.cityName}}</ng-option>
+                    </ng-select>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['city'].hasError('required') && (postForm.controls['city'].dirty || postForm.controls['city'].touched)">{{labelData[0].Please_select_city}}</small>
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="locationList">
+                    <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline"
+                      placeholder="{{labelData[0].Select_area}}*" formControlName="area" (change)="onChangeArea($event)"
+                      labelForId="area" name="area">
+                      <ng-option *ngFor="let location of locationList" [value]="location.locationID">
+                        {{location.locationName}}</ng-option>
+                    </ng-select>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['area'].hasError('required') && (postForm.controls['area'].dirty || postForm.controls['area'].touched)">{{labelData[0].Please_select_area}}</small>
+                  </div>
+                  <div class="form-group col-md-12" *ngIf="isBuyer">
+                    <input type="text" class="form-control" id="postotherArea" formControlName="postotherArea"
+                      name="postotherArea" placeholder="{{labelData[0].Write_area_if_not_in_the_above_list}}">
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['postotherArea'].hasError('maxlength')">Input
+                      fields will not be more than 150 characters.</small>
+                  </div>
+
+                  <div class="form-group col-md-6" *ngIf="isSeller">
+                    <ng-select [closeOnSelect]="true" [searchable]="true" appearance="outline"
+                      placeholder="{{labelData[0].Select_zip}}*" formControlName="zip" labelForId="zip" name="zip">
+                      <ng-option *ngFor="let zipCode of zipCodeList" [value]="zipCode.zipID">{{zipCode.zipCode}}
+                      </ng-option>
+                    </ng-select>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['zip'].hasError('required') && (postForm.controls['zip'].dirty || postForm.controls['zip'].touched)">{{labelData[0].Please_select_zip}}</small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="areaInSqFt" formControlName="areaInSqFt"
+                      name="areaInSqFt" placeholder="{{labelData[0].Area_in_sqft_optional}}">
+                    <small class="text-danger small" *ngIf="postForm.controls['areaInSqFt'].hasError('pattern')">Accept
+                      only
+                      numeric
+                      value.</small>
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="isSeller">
+                    <input type="text" class="form-control" id="price" formControlName="price" name="price"
+                      placeholder="{{labelData[0].Price_in_INR_optional}}">
+                    <small class="text-danger small" *ngIf="postForm.controls['price'].hasError('pattern')">Accept only
+                      numeric
+                      value.</small>
+                  </div>
+                </div>
+                <hr>
+
+                <h6 class="titlecard">{{labelData[0].Contact_details}}</h6>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="organizationName" formControlName="organizationName"
+                      name="organizationName" placeholder="{{labelData[0].Organization_name}}">
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['organizationName'].hasError('minlength')">Input
+                      fields will not be less than 3 characters.</small>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['organizationName'].hasError('maxlength')">Input
+                      fields will not be more than 60 characters.</small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="ContactPerson" formControlName="ContactPerson"
+                      name="ContactPerson" placeholder="{{labelData[0].Contact_person}}">
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['ContactPerson'].hasError('minlength')">Input
+                      fields will not be less than 3 characters.</small>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['ContactPerson'].hasError('maxlength')">Input
+                      fields will not be more than 60 characters.</small>
+                  </div>
+                  <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="contactNumber" formControlName="contactNumber"
+                      maxlength="10" pattern="[1-9]{1}[0-9]{9}" name="contactNumber"
+                      placeholder="{{labelData[0].Contact_number + '*'}}">
+                    <small class="text-danger small"
+                      *ngIf=" postForm.controls['contactNumber'].hasError('required') && (postForm.controls['contactNumber'].dirty || postForm.controls['contactNumber'].touched || postForm.controls['contactNumber'].untouched || postForm.controls['contactNumber'].pristine)">{{labelData[0].Please_enter_contact_number}}</small>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['contactNumber'].hasError('pattern') && (postForm.controls['contactNumber'].dirty || postForm.controls['contactNumber'].touched)">{{labelData[0].Mobile_Number_must_be_only_10_digit}}</small>
+
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="alternateContactNumber" maxlength="10"
+                      pattern="[1-9]{1}[0-9]{9}" formControlName="altcontactNumber" name="altcontactNumber"
+                      placeholder="{{labelData[0].Alternet_contact_number}}">
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['altcontactNumber'].hasError('pattern') && (postForm.controls['altcontactNumber'].dirty || postForm.controls['altcontactNumber'].touched)">{{labelData[0].Mobile_Number_must_be_only_10_digit}}</small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="email" class="form-control" id="email" name="email" formControlName="email"
+                      placeholder="{{labelData[0].Email_id}}">
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['email'].hasError('pattern') && (postForm.controls['email'].dirty || postForm.controls['email'].touched )">{{labelData[0].Please_enter_valid_Email_ID}}</small>
+                    <small class="text-danger small"
+                      *ngIf="postForm.controls['email'].hasError('required') && (postForm.controls['email'].dirty || postForm.controls['email'].touched || postForm.controls['email'].untouched || postForm.controls['email'].pristine)">{{labelData[0].Please_enter_Email_ID}}</small>
+                  </div>
+                  <small class="form-group col-md-12 text-danger small"
+                    *ngIf="postForm.controls['contactNumber'].hasError('emptyMobile') && postForm.controls['email'].hasError('emptyEmail')">{{labelData[0].You_should_write_Mobile_Number_or_Email_ID}}</small>
+                </div>
+
+                <h6 class="titlecard">{{labelData[0].Mode_of_contact}}<span class="star">*</span></h6>
+
+                <div class="chekgroup d-flex">
+                  <div class="custom-control custom-checkbox pr-3">
+                    <input type="checkbox" formControlName="modeMobile"
+                      (click)="onClickChangeModeMobile($event.target.value)" class="custom-control-input"
+                      name="example1" value="Mobile" id="mobile">
+                    <label class="custom-control-label cursr" for="mobile">{{labelData[0].Mobile}}</label>
+                  </div>
+                  <div class="custom-control custom-checkbox pr-3">
+                    <input type="checkbox" formControlName="modeEmail"
+                      (click)="onClickChangeModeEmail($event.target.value)" class="custom-control-input" value="Email"
+                      name="example1" id="emailid">
+                    <label class="custom-control-label cursr" for="emailid">{{labelData[0].Email}}</label>
+                  </div>
+                </div>
+                <small class="text-danger small"
+                  *ngIf="postForm.controls['modeMobile'].hasError('notSelectedMobile') && postForm.controls['modeEmail'].hasError('notSelectedEmail')">{{labelData[0].Please_select_mode_of_contact}}</small>
+
+                <hr>
+                <h6 class="titlecard">{{labelData[0].Upload_images + "(Optional)"}}</h6>
+                <div class="upload-img-content">
+                  <ul>
+                    <li>
+                      <label class="customfile">
+                        <input type="file" multiple id="mediaFile" #mediaFile (change)="fileAdded($event)">
+                        <img class="cursr" src="assets/images/upload_picture_placeholder.png" alt="placeholer"
+                          accept="image/*">
+                      </label>
+                    </li>
+                    <span *ngIf="imgURL.length>0">
+                      <li *ngFor="let prewiew of imgURL; let i = index">
+                        <div class="uploded-img"><span class="close" (click)="onClose(i)">&times;</span> <img
+                            [src]="prewiew" alt="">
+                        </div>
+                      </li>
+                    </span>
+                  </ul>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-12" [formGroup]="postForm">
+
+        <div class="cartpay-conten plan-section card mb-3">
+          <h5 class="titlecard">{{labelData[0].Select_plan}}<span class="star">*</span></h5>
+
+          <div class="custom-control custom-radio d-flex" *ngFor="let package of packageDetails; let ind = index;">
+            <input type="radio" formControlName="packageDetail" class="custom-control-input" id="radiox{{ind}}"
+              name="packageDetail" [value]=package required>
+            <label class="custom-control-label cursr" for="radiox{{ind}}">
+              <p class="mb-0">{{package.packagedetailName | titlecase}} </p>
+              <span class="text-muted">1 Buy Post | {{package.packagedetailDays +"days"}}</span>
+            </label>
+            <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i>
+                {{package.packagedetailFees}}</b></div>
+          </div>
+          <small class="text-danger small"
+            *ngIf="postForm.controls['packageDetail'].hasError('required') && (postForm.controls['packageDetail'].dirty || postForm.controls['packageDetail'].touched)">Please
+            Select Plan.</small>
+          <div class="bunowbutton text-center mb-2">
+            <button href="#" (click)="postSpaceAds(postForm.value)" class="btn mt-2 d-block login-submit-btn checkout"
+              data-toggle="modal"> <span class="position-relative">{{labelData[0].Add_post}}</span></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--start services area-->
+<ng-template #dummyForm>
+  <section id="about-area" class="bg-light-gray">
+    <div class="container">
+      <div class="row fabric-slider pb-4">
+        <div class="col-lg-8 col-md-12">
+          <div class="cartlist-conten card cartpay-conten">
+            <h5 class="titlecard"></h5>
+            <div class="unlisted-section">
+              <div class="tab-logincontent p-0">
+                <form id="ajax-contact" action="index-loggedin.html" method="post">
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <textarea type="text" class="form-control" name="house" placeholder=""></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <select class="form-control custom-dropdown">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <select class="form-control custom-dropdown">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <select class="form-control custom-dropdown">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="areas" name="areas" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="area" name="area" placeholder="">
+                    </div>
+                  </div>
+                  <hr>
+
+                  <h6 class="titlecard"></h6>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <select class="form-control custom-dropdown">
+                        <option value=""></option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="phone" name="phone" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="phone2" name="phone2" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="">
+                    </div>
+                  </div>
+
+                  <h6 class="titlecard"></h6>
+                  <div class="chekgroup d-flex">
+                    <div class="custom-control custom-checkbox pr-3">
+                      <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+                      <label class="custom-control-label" for="customCheck"></label>
+                    </div>
+                    <div class="custom-control custom-checkbox pr-3">
+                      <input type="checkbox" class="custom-control-input" id="customCheck2" name="example1">
+                      <label class="custom-control-label" for="customCheck2"></label>
+                    </div>
+                  </div>
+                  <hr>
+
+                  <h6 class="titlecard"></h6>
+                  <div class="upload-img-content">
+                    <ul>
+                      <li>
+                        <label class="customfile">
+                          <input type="file">
+                          <img src="assets/images/upload_picture_placeholder.png" alt="placeholer">
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <div class="cartpay-conten plan-section card mb-3">
+            <h5 class="titlecard"></h5>
+
+            <div class="custom-control custom-radio d-flex">
+              <input type="radio" class="custom-control-input" id="customRadio" name="example1" value="customEx">
+              <label class="custom-control-label" for="customRadio">
+                <p class="mb-0"></p>
+                <span class="text-muted"></span>
+              </label>
+              <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i></b></div>
+            </div>
+
+            <div class="custom-control custom-radio d-flex">
+              <input type="radio" class="custom-control-input" id="customRadio2" name="example1" value="customEx">
+              <label class="custom-control-label" for="customRadio2">
+                <p class="mb-0"></p>
+                <span class="text-muted"></span>
+              </label>
+              <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i></b></div>
+            </div>
+
+            <div class="custom-control custom-radio d-flex">
+              <input type="radio" class="custom-control-input" id="customRadio3" name="example1" value="customEx">
+              <label class="custom-control-label" for="customRadio3">
+                <p class="mb-0"> </p>
+                <span class="text-muted"></span>
+              </label>
+              <div class="rightpay ml-auto"><b><i class="fas fa-rupee-sign"></i></b></div>
+            </div>
+
+            <div class="bunowbutton text-center mb-2">
+              <a href="#" class="btn mt-2 d-block login-submit-btn checkout" data-toggle="modal"
+                data-target="#Verification"> <span class="position-relative"></span></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+<!--end servicrs area-->
+
+
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

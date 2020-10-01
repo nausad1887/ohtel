@@ -1,0 +1,101 @@
+<header id="header">
+  <div class="">
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+
+        <a class="logo" routerLink="/home"><img class="defult-logo" src="assets/images/logo.png" alt="logo" />
+          <img class="main-logo" src="assets/images/logo.png" alt="logo" /> </a>
+        <div class="search-content">
+          <a href="#" class="searchmobile d-lg-none"><i class="fas fa-map-marked-alt"></i></a>
+          <form class="navbar-form searchloacation" *ngIf="cityListArray.length>0">
+            <span class="locationicon"><i class="fas fa-map-marker-alt"></i></span>
+            <ng-select2 [data]="cityListArray" [(ngModel)]="cityID" name="cityID" [width]="150">
+            </ng-select2>
+            <input class="form-control search-box" (keyup)='keyUp.next($event)'
+              placeholder="Search spaces, used equipments, jobs, deals" type="text">
+            <span class="locationicon serarch-icon"><i class="fas fa-search"></i></span>
+          </form>
+        </div>
+        <div class="d-md-none cursr">
+          <select [(ngModel)]="languageID" class="form-control languagedrop cursr">
+            <option *ngFor="let language of (languageLists$ | async)" [value]="language.languageID">
+              {{language.languageName}}</option>
+          </select>
+        </div>
+        <div class="nav-item mycart d-md-none ">
+          <a class="nav-link text-white" routerLink='/notification'><i class="far fa-bell"></i> <span
+              class="counter-cr"></span></a>
+        </div>
+        <li class="nav-item d-md-none dropdown pl-1">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <span class="userplaceholder"><img [src]="imageUrl != null ? imageUrl : defaultmyImgUrl" alt="Profile Pic"
+                alt="Profile Pic"></span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="min-width: 200px;"
+            *ngIf="userInfo.length>0">
+            <a class="dropdown-item profileinfo pb-2" routerLink='/my-account'>
+              <span class="userplaceholder"><img [src]="imageUrl != null ? imageUrl : defaultmyImgUrl"
+                  alt="Profile Pic"></span>
+              <span>{{userInfo[0].userFirstName + " " + userInfo[0].userLastName | titlecase}}</span>
+            </a>
+            <a class="dropdown-item" routerLink='/my-ads' *ngIf="languageData.length>0"><img
+                src="assets/images/my_ads.png" alt="icon" class="mr-2">{{languageData[0].My_ads}}</a>
+            <a class="dropdown-item" routerLink='/subscription' *ngIf="languageData.length>0"><img
+                src="assets/images/subscribe.png" alt="icon" class="mr-2">
+              {{languageData[0].Subscription}}
+            </a>
+            <hr class="mt-2 mb-2">
+            <a class="dropdown-item" (click)="signOut()" *ngIf="languageData.length>0"><img
+                src="assets/images/logout.png" alt="icon" class="mr-2"> {{languageData[0].Sign_out}}</a>
+          </div>
+        </li>
+        <div class="d-md-none"><a class="nav-link login-signup-btn" routerLink="/post-ads"
+            *ngIf="languageData.length>0">{{languageData[0].Add_post}}</a></div>
+
+        <div class="collapse navbar-collapse " id="navbarContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <select [(ngModel)]="languageID" class="form-control languagedrop cursr">
+                <option *ngFor="let language of (languageLists$ | async)" [value]="language.languageID">
+                  {{language.languageName}}</option>
+              </select>
+            </li>
+            <li class="nav-item mycart d-md-block d-none">
+              <a class="nav-link" routerLink='/notification'><i class="far fa-bell"></i> <span
+                  class="counter-cr"></span></a>
+            </li>
+            <li class="nav-item d-md-block d-none dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="userplaceholder"><img [src]="imageUrl != null ? imageUrl : defaultmyImgUrl"
+                    alt="Profile Pic"></span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="min-width: 200px;"
+                *ngIf="userInfo.length>0">
+                <a class="dropdown-item profileinfo pb-2" routerLink='/my-account'>
+                  <span class="userplaceholder"><img [src]="imageUrl != null ? imageUrl : defaultmyImgUrl"
+                      alt="Profile Pic"></span>
+                  <span>{{userInfo[0].userFirstName + " " + userInfo[0].userLastName | titlecase}}</span>
+                </a>
+                <a class="dropdown-item" routerLink='/my-ads' *ngIf="languageData.length>0"><img
+                    src="assets/images/my_ads.png" alt="icon" class="mr-2">
+                  {{languageData[0].My_ads}}</a>
+                <a class="dropdown-item" routerLink='/subscription' *ngIf="languageData.length>0"><img
+                    src="assets/images/subscribe.png" alt="icon" class="mr-2">{{languageData[0].Subscription}}</a>
+                <hr class="mt-2 mb-2">
+                <a class="dropdown-item cursr" (click)="signOut()" *ngIf="languageData.length>0"><img
+                    src="assets/images/logout.png" alt="icon" class="mr-2">
+                  {{languageData[0].Sign_out}}</a>
+              </div>
+            </li>
+            <li class="nav-item d-md-block d-none">
+              <a class="nav-link login-signup-btn" routerLink="/post-ads"
+                *ngIf="languageData.length>0">{{languageData[0].Add_post}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>

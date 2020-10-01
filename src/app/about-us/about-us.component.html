@@ -1,0 +1,46 @@
+<div class="sparettop"></div>
+<!--start hero area-->
+<section id="hero-area" class="slider-bg about-slider" data-scroll-index="0">
+  <owl-carousel-o [options]="customOptionsBanner">
+    <ng-template carouselSlide *ngFor="let item of defaultBannerImgUrl; let id = index" [id]="item.id">
+      <div class="slide-single" [ngStyle]="{'background-image':'url(' + item.src + ')'}" [title]="item.title">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 align-self-center">
+              <div class="caption">
+                <h2>Best <span class="text-dark">Classified Ads - All</span> at <span class="text-dark">one
+                    place!</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+</section>
+<!--end hero area-->
+
+<!--start services area-->
+<section id="product-list-section" class="pt-3 bg-light-gray">
+  <div class="container" *ngIf="innnerHTML$ | async as cmsContent">
+    <div class="about-page" [innerHTML]="cmsContent[0].cmspageContents | privacy">
+    </div>
+  </div>
+  <div class="container" *ngIf="(innnerHTML$ | async) === null">
+    <div class="row" style="margin-top: 40px;">
+      <div class="col">
+        <p class="text-center">Loading...</p>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="(innnerHTML$ | async) === undefined">
+    <div class="row" style="margin-top: 40px;">
+      <div class="col">
+        <p class="text-center">No Content Found.</p>
+      </div>
+    </div>
+  </div>
+  <br>
+</section>
+<!--end servicrs area-->

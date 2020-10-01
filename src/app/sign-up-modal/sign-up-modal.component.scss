@@ -1,0 +1,22 @@
+.cursr {
+  cursor: pointer;
+}
+
+.inputWithIcon input [type="password"] {
+  padding-right: 40px;
+}
+
+.inputWithIcon {
+  position: relative;
+}
+
+.inputWithIcon i {
+  position: absolute;
+  right: 0;
+  top: 6px;
+  padding: 9px 12px;
+}
+
+.small {
+  font-size: 0.9em;
+}

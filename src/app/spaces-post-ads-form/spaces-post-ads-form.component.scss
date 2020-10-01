@@ -1,0 +1,22 @@
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.star {
+  color: red;
+}
+.small {
+  font-size: 0.9em;
+}
+.cursr {
+  cursor: pointer;
+}

@@ -1,0 +1,50 @@
+<!--Login  Modal -->
+<!-- <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel"
+    aria-hidden="true"> -->
+<!-- <div class="modal-dialog"> -->
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title"><img src="assets/images/logo -blue.png" alt="logo"></h4>
+        <button type="button" (click)="onClose()" class="close" data-dismiss="modal" #closebutton>&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="tab-logincontent pb-0 pt-0">
+            <div class="titleform">
+                <h4 class="mb-0" *ngIf="labelData.length>0">{{labelData[0].Welcome_back}}</h4>
+                <p *ngIf="labelData.length>0">{{labelData[0].Sign_into_your_account}}</p>
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="signInFunction(loginForm.value)" method="post" novalidate="true">
+                <div class="form-group position-relative has-error has-danger" *ngIf="labelData.length>0">
+                    <input type="text" class="form-control" formControlName="email" id="email"
+                        name="emailOrMobileNumber" placeholder="{{labelData[0].Email_mobile_number}}" required>
+                    <small class="text-danger small"
+                        *ngIf="loginForm.controls['email'].hasError('required') && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">{{labelData[0].Please_enter_email_mobile}}</small>
+                    <small class="text-danger small"
+                        *ngIf="loginForm.controls['email'].hasError('pattern') && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">{{labelData[0].Please_enter_valid_email_mobil_number}}</small>
+                </div>
+                <div class="form-group position-relative inputWithIcon" *ngIf="labelData.length>0">
+                    <input type="password" [type]=" hide ? 'password' : 'text' "
+                        (keydown.space)="$event.preventDefault()" class="form-control" formControlName="password"
+                        id="password" name="password" placeholder="{{labelData[0].Password}}" required>
+                    <a class="cursr" (click)="myFunction()"><i class="fas "
+                            [ngClass]="{'fa-eye': !hide, 'fa-eye-slash': hide}"></i></a>
+                    <a href="#" class="forgotlink" data-toggle="modal" data-dismiss="modal"
+                        (click)="openForgetPasswordModal()" *ngIf="labelData.length>0">{{labelData[0].Forgot}}</a>
+                    <small class="text-danger small"
+                        *ngIf="loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">{{labelData[0].Please_enter_password}}</small>
+                </div>
+                <div class="text-center">
+                    <button class="btn login-submit-btn" [disabled]="loginForm.invalid" type="submit"> Login</button>
+                </div>
+                <div class="loginwith pt-3 text-center">
+                    <hr>
+                    <p class="mb-0" *ngIf="labelData.length>0">{{labelData[0].Dont_have_a_account}}</p>
+                    <p class="mb-0"><a class="registerlink cursr" style="color: blue;" (click)="openSignUpModal()"
+                            data-toggle="modal" *ngIf="labelData.length>0">{{labelData[0].Register}}</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->

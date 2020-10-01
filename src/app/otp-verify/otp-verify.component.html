@@ -1,0 +1,126 @@
+<!-- <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">OTP Verification</h4>
+            <button type="button" class="close" data-dismiss="modal"
+                (click)="activeModal.dismiss('Cross click')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="tab-logincontent pt-0">
+                <p>Enter 4-digit OTP received on this <span style="color: blueviolet;">* <span>{{number}}</span></span> Mobile
+                    Number.</p>
+                <p class="text-center">Haven’t received the code yet?<span class="btn btn-link"
+                        (click)="onResendClick()">Resend</span></p>
+                <form id="ajax-contact" #ngF="ngForm" (ngSubmit)="onSubmit(ngF)" method="post" novalidate="true">
+                    <div class="form-group row formline">
+                        <div class="col">
+                            <input type="text" class="form-control" id="NewPassword1" [(ngModel)]="one" name="one"
+                                placeholder=" " required="required" data-error="required.">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="NewPassword2" [(ngModel)]="two" name="two"
+                                placeholder="" required="required" data-error="required.">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="NewPassword3" [(ngModel)]="three" name="three"
+                                placeholder="" required="required" data-error="required.">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="NewPassword4" [(ngModel)]="four" name="four"
+                                placeholder="" required="required" data-error="required.">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn login-submit-btn" id="ngF" type="submit" data-toggle="modal">
+                            Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- action="payment.html" -->
+<div class="container">
+    <div class="wrapper">
+        <div class="row ">
+            <div class="col-sm-12">
+                <ul class="list-group"><br>
+                    <li class="list-group-item border border-dark" *ngIf="!show">
+                        <p class="text-justify"> you need to verify your number if you need to display it on ads</p>
+                        <div class="col-sm-6 float-left text-center ">
+                            <button class="btn btn-link" (click)="toggle()">link</button>
+                        </div>
+                        <div class="col-sm-6  float-right text-center">
+                            <button class="btn btn-link">link</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item border border-dark" *ngIf="show">
+                        <p> you need to verify your number if you need to display</p>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <button (click)="toggle()">link</button>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <br>
+                </ul>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-12">
+                <ul class="list-group"><br>
+                    <li class="list-group-item border border-dark" *ngIf="!show2">
+                        <p class="text-justify"> you need to verify your number if you need to display it on ads</p>
+                        <div class="col-sm-6 float-left text-center ">
+                            <button class="btn btn-link" (click)="toggle1()">link</button>
+                        </div>
+                        <div class="col-sm-6  float-right text-center">
+                            <button class="btn btn-link">link</button>
+                        </div>
+                    </li>
+                    <li class="list-group-item border border-dark" *ngIf="show2">
+                        <p> you need to verify your number if you need to display</p>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" placeholder="0" maxlength="1" />
+                                        </td>
+                                        <button (click)="toggle1()">link</button>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <br>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

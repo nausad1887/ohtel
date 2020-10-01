@@ -1,0 +1,314 @@
+{
+  "/category/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/language/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/user-registration/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/city/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/user-login-password/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/subcategory/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/user-update-profile/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/change-password/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/user-forgot-password/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/reset-password/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/create-post/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/zipcode/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/locations/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/packages/get-package-list/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/categorytype/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/subcategorylevel/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/file-upload*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/user-update-profile-picture/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/alternateno-otp-verification/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/verify-mobile/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/verify-alternateno/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/mobile-otp-verification/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/verify-mobile/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/mobile-otp-verification/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/mobile-otp-resend/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/mobile-otp-resend/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/alternateno-otp-resend/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/cmspage/get-cmspage/*": {
+    "target": "http://betaapplication.com/jobco/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/review-post/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/verify-email/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/email-otp-resend/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/email-otp-verification/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/categorytype/get-categorytype-list/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/education/get-education-list/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/experiance/get-experiance-list/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/state/get-state-list/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/posts/my-posts/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/userfavorite/user-favorite/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/userfavorite/user-un-favorite/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/userfavorite/get-user-favorites/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/packages/get-my-subscriptions/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/otp-resend/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/otp-verification/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/verify-email/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/email-otp-verification/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/email-otp-resend/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/check-user-duplication/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/user-update-settings/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/users/user-update-language/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/language/list-labels/*": {
+    "target": "http://betaapplication.com/ohtel/backend/web/index.php/v1",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  }
+}

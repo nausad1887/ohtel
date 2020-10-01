@@ -1,0 +1,126 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="labelData.length>0; else name">
+  <div class="container">
+    <div class="menu-myads">
+      <ul class="row m-0">
+        <li><a routerLink="/my-ads" routerLinkActive="active">{{labelData[0].My_ads}}</a></li>
+        <li>
+          <a routerLink="/favourites" routerLinkActive="active">{{labelData[0].Favourite}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<ng-template #name>
+  <div class="tabcab">
+    <div class="container">
+      <div class="menu-myads">
+        <div class="row">
+          <div class="col-1">
+            <p class="card-texteds"></p>
+          </div>
+          <div class="col-1">
+            <p class="card-texteds"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--start services area-->
+<section id="about-area" class="bg-light-gray">
+  <div class="container">
+    <div class="row pb-4">
+      <div class="col-lg-3 col-md-12" *ngIf="labelData.length>0 && (categoryLists$ | async)?.length>0; else category">
+        <h5 class="titlecard"><a href="#" id="fiter-shomobile" class="d-md-none"><i class="fas fa-filter"></i></a>
+          &nbsp; {{labelData[0].Filter}} </h5>
+        <div class="cartpay-conten card mb-3 filter-section-left">
+          <div class="filter-section category">
+            <h5 class="titlecard">{{labelData[0].Catagories}}</h5>
+            <form class="navbar-form ">
+              <div class="chekgroup" *ngIf="(categoryLists$ | async)?.length>0;">
+                <div class="custom-control custom-checkbox pb-3" *ngFor="let item of (categoryLists$ | async | sort)">
+                  <input type="checkbox" [checked]="item.categoryID === categoryID" class="custom-control-input">
+                  <label class="custom-control-label cursr" (click)="onChangeCategoryID(item.categoryID);"
+                    for="customCheck5"> &nbsp;
+                    {{item.categoryName | titlecase}}</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ng-template #category>
+        <div class="col-lg-3 col-md-12">
+          <h5 class="titlecard"><a href="#" id="fiter-shomobile" class="d-md-none"><i class="fas fa-filter"></i></a>
+            &nbsp; </h5>
+          <div class="cartpay-conten card mb-3 filter-section-left">
+            <div class="filter-section category">
+              <p class="card-text"></p>
+              <form class="navbar-form ">
+                <div class="chekgroup">
+                  <div class="custom-control custom-checkbox pb-3">
+                    <p class="pr-3 card-text"></p>
+                    <p class="card-text"></p>
+                    <p class="card-text"></p>
+                    <p class="card-text"></p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="col-lg-9 col-md-12">
+        <div class="product-content" *ngIf="userFavouriteLists$ | async as favouriteLists">
+          <p class="status-lable text-muted mb-2">&nbsp;</p>
+          <div class="row" *ngIf="favouriteLists.length > 0">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of favouriteLists | favouriteLists | paginate: { itemsPerPage: 6, currentPage: p }">
+              <div class="deals-items card product-items">
+                <div class="deals-img">
+                  <a (click)="getIndexOfPost(item)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true}}<a
+                      (click)="getIndexOfPost(item)">more</a></p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">2200 sqft</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>
+                      {{item.postCreatedDate | date}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-content" *ngIf="(userFavouriteLists$ | async) === undefined">
+          <div class="row" style="margin-top: 40px;">
+            <div class="col">
+              <p class="text-center">No Record Found.</p>
+            </div>
+          </div>
+        </div>
+        <div class="product-content" *ngIf="(userFavouriteLists$ | async) === null">
+          <div *ngIf="(userFavouriteLists$ | async) === null" style="margin-top: 34px;">
+            <app-favourite-skeleton></app-favourite-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pagination-controls style="text-align: center;" (pageChange)="p = $event"
+    *ngIf="(userFavouriteLists$ | async)?.length>0 && (userFavouriteLists$ | async)?.length>6">
+  </pagination-controls>
+</section>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<!--end servicrs area-->

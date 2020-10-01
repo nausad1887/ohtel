@@ -1,0 +1,157 @@
+<!--Deals start -->
+<section id="testi-area" class="testimoneial-section" *ngIf="deals">
+    <div class="container">
+        <div class="heading">
+            <h2>Deals in your city</h2>
+        </div>
+        <div class="deals-carousel owl-carousel">
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="#"><img [src]="deals[2].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[2].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Barbecued - By The Orchard</h4>
+                    </a>
+                    <p class="text-muted">Sadashiva Nagar</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire In: <span class="timerlable" id="myclock">time</span></div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="#"><img [src]="deals[4].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[4].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Barbecued - By The Orchard</h4>
+                    </a>
+                    <p class="text-muted">Whitefield</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire In: <span class="timerlable" id="myclock2">time</span></div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="#"><img [src]="deals[5].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[5].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Barbecued - By The Orchard</h4>
+                    </a>
+                    <p class="text-muted">Sadashiva Nagar</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire In: <span class="timerlable" id="myclock3">time</span></div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="#"><img [src]="deals[2].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[2].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Barbecued - By The Orchard</h4>
+                    </a>
+                    <p class="text-muted">Sadashiva Nagar</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire In: <span class="timerlable" id="myclock4">time</span></div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--end  area-->
+
+<!--start  Other Deals-->
+<section class="bg other-deals" *ngIf="deals">
+    <div class="container">
+        <div class="heading">
+            <h2>Other Deals</h2>
+        </div>
+        <div class="deals-carousel owl-carousel">
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="spaces-hotel-detail.html"><img [src]="deals[0].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[0].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Republic Day Sale</h4>
+                    </a>
+                    <p class="text-muted">Sadashiva Nagar</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire On: Today, 17:00 </div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="#"><img [src]="deals[3].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[3].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Barbecued - By The Orchard</h4>
+                    </a>
+                    <p class="text-muted">Whitefield</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire On: Today, 17:00</div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="#"><img [src]="deals[1].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[1].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Barbecued - By The Orchard</h4>
+                    </a>
+                    <p class="text-muted">Sadashiva Nagar</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire On: Today, 17:00</div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deals-items">
+                <div class="deals-img">
+                    <a href="spaces-hotel-detail.html"><img [src]="deals[0].bannerFile" class="" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                    <span class="lable-deals">{{deals[0].bannerName}}</span>
+                    <a href="#">
+                        <h4 class="mb-0"> Republic Day Sale</h4>
+                    </a>
+                    <p class="text-muted">Sadashiva Nagar</p>
+                    <div class="client-comnt d-flex">
+                        <div class="timer text-muted">Expire On: Today, 17:00 </div>
+                        <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--end  area-->

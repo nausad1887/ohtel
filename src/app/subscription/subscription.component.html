@@ -1,0 +1,167 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="labelData.length>0; else nameSub">
+  <div class="container">
+    <div class="tabcabitem"><span style="font-weight:bold">{{labelData[0].Subscription}}</span> </div>
+  </div>
+</div>
+<ng-template #nameSub>
+  <div class="tabcab">
+    <div class="container">
+      <div class="tabcabitem"><span style="font-weight:bold"></span> </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--start services area-->
+<section id="about-area" class="bg-light-gray">
+  <div class="container">
+    <div class="row pb-4">
+      <div class="col-lg-9 col-md-12">
+        <div class="cartlist-conten card cartpay-conten" *ngIf="subscriptionLists$ | async as subscrip">
+          <h5 class="titlecard" *ngIf="labelData.length>0">{{labelData[0].Subscription}}</h5>
+          <hr class="mt-0">
+          <div *ngIf="subscrip">
+            <div class="profile-saved" *ngFor="let item of (subscrip | subscription | slice:0:show)">
+              <div class="d-flex">
+                <div class="leftsubscr">
+                  <h6 class="mb-1 theme-text">{{item.packageUserType}} {{item.categoryName}} |
+                    {{item.packagedetailName | titlecase}}</h6>
+                  <p class="mb-1">{{"1" + " " + item.packageUserType + " " + "Post"}}</p>
+                  <p class="mb-1">{{item.days + " Days"}}</p>
+                </div>
+                <div class="leftsubscr ml-auto">
+                  <h6 class="mb-1"><i class="fas fa-rupee-sign"></i>
+                    {{item.usersubscriptionFees | number}}</h6>
+                  <p class="mb-1" *ngIf="labelData.length>0">{{labelData[0].Bought_On}}<span
+                      class="text-muted">{{item.usersubscriptionStartDate | date: 'mediumDate'}}</span>
+                  </p>
+                  <p class="mb-1" *ngIf="labelData.length>0">{{labelData[0].Expires_On}}<span
+                      class="text-muted">{{item.usersubscriptionEndDate | date: 'mediumDate'}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="subscriptionLists$ | async as sub">
+            <div class="col-12" *ngIf="sub.length > 2">
+              <div class="text-center">
+                <a (click)="show = sub.length" class="btned cursr" *ngIf="sub.length != show">More
+                  <i class="fas fa-chevron-down"></i></a>
+                <a (click)="show = 2" class="btned cursr" *ngIf="sub.length === show">Less<i
+                    class="fas fa-chevron-up"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- no record found -->
+        <div class="row" style="margin-top: 20px; margin-bottom: 20px;"
+          *ngIf="(subscriptionLists$ | async) === undefined">
+          <div class="col">
+            <p class="text-center">Currently No Subscription Available</p>
+            <img class="center" style="height: 200px;width: 300px;" src="assets/images/ims.png" alt="arrow">
+          </div>
+        </div>
+        <!-- no record found -->
+        <!-- loading -->
+        <div *ngIf="(subscriptionLists$ | async) === null">
+          <app-subscription-skeleton></app-subscription-skeleton>
+        </div>
+        <!-- loading -->
+        <div class="cartlist-conten card cartpay-conten">
+          <h5 class="titlecard" *ngIf="labelData.length>0">{{labelData[0].Browse_plans}}</h5>
+          <hr class="mt-0">
+          <div class="tab-logincontent p-0">
+            <form [formGroup]="planForm" method="post">
+              <div class="row" *ngIf="(categoryLists$ | async)?.length>0; else data">
+                <div class="form-group col-md-4" *ngIf="labelData.length>0">
+                  <ng-select [closeOnSelect]="true" (change)="onCategoryIDChange($event)" [searchable]="false"
+                    appearance="outline" formControlName="categoryID" placeholder="{{labelData[0].Select_category}}"
+                    labelForId="category" name="categoryID">
+                    <ng-option *ngFor="let item of (categoryLists$ | async | sort)" [value]="item.categoryID">
+                      {{item.categoryName | titlecase}}
+                    </ng-option>
+                  </ng-select>
+                </div>
+                <div class="form-group col-md-4" *ngIf="labelData.length>0">
+                  <ng-select [closeOnSelect]="true" formControlName="subCatID" (change)="onSubCatChange($event)"
+                    [searchable]="false" appearance="outline" placeholder="{{labelData[0].Sub_category}}"
+                    labelForId="subCatID" name="Sub_category">
+                    <span *ngIf="subcategoryLists$ | async as subCat">
+                      <ng-option *ngFor="let item of subCat | sortSubCat" [value]="item.subcatID">
+                        {{item.subcatName | titlecase}}
+                      </ng-option>
+                    </span>
+                  </ng-select>
+                </div>
+                <div class="form-group col-md-4" *ngIf="labelData.length>0">
+                  <ng-select [closeOnSelect]="true" formControlName="catTypeID" (change)="onChangeType($event)"
+                    [searchable]="false" appearance="outline" placeholder="Add Type" labelForId="type" name="catTypeID">
+                    <ng-option *ngFor="let item of (catTypeLists$ | async)" [value]="item.categorytypeID">
+                      {{item.categorytypeName | titlecase}}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <ng-template #data>
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <h5 class="cardd-text mb-0"></h5>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <h5 class="cardd-text mb-0"></h5>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <h5 class="cardd-text mb-0"></h5>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="row" *ngIf="packageDetails.length>0">
+                <div class="form-group col-lg-4 col-md-4 col-sm-6" *ngFor="let item of packageDetails">
+                  <div class="card boxe-plans text-center">
+                    <h6 class="mb-0">{{item.packagedetailName | titlecase}}</h6>
+                    <h4 class="mb-0 theme-text font-weight-normal"><small class="fas fa-rupee-sign"></small>
+                      {{item.packagedetailFees | number}}
+                    </h4>
+                    <p class="mb-0">{{item.packagedetailDays + " Days"}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="packageDetails.length === 0 && loading">
+                <div class="form-group col-lg-4 col-md-4 col-sm-6">
+                  <div class="card boxe-plans text-center">
+                    <p class="pr-3 card-text"></p>
+                    <p class="pr-3 card-text"></p>
+                    <p class="pr-3 card-text"></p>
+                  </div>
+                </div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-6">
+                  <div class="card boxe-plans text-center">
+                    <p class="pr-3 card-text"></p>
+                    <p class="pr-3 card-text"></p>
+                    <p class="pr-3 card-text"></p>
+                  </div>
+                </div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-6">
+                  <div class="card boxe-plans text-center">
+                    <p class="pr-3 card-text"></p>
+                    <p class="pr-3 card-text"></p>
+                    <p class="pr-3 card-text"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="packageDetails.length === 0 && noRecordFound">
+                <div class="col" style="margin-top: 20px;">
+                  <p class="text-center">No Record Found.</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end servicrs area-->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

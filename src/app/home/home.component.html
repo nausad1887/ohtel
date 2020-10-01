@@ -1,0 +1,222 @@
+<!--start hero area-->
+<section id="hero-area" class="slider-bg" data-scroll-index="0">
+  <owl-carousel-o [options]="customOptionsBanner">
+    <ng-template carouselSlide *ngFor="let item of defaultBannerImgUrl; let id = index" [id]="item.id">
+      <div class="slide-single" [ngStyle]="{'background-image':'url(' + item.src + ')'}" [title]="item.title">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 align-self-center">
+              <div class="caption">
+                <h1 class="text-white">Great Discounts on Hotels</h1>
+                <p class="text-slider-green">Lorem ipsum dolor sit amet, consectetur</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+</section>
+<!--end hero area-->
+
+<!--All Category area-->
+<section id="about-area">
+  <div class="container">
+    <div class="heading">
+      <h2 *ngIf="labelData.length>0">{{labelData[0].TOP_CATEGORIES}}</h2>
+    </div>
+    <div class="servicesbox-content" *ngIf="categoryLists$ | async as categoryLists">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 col-6 services-box"
+          *ngFor="let category of categoryLists | home | catLabel: labelData; trackBy: trackByFn; let i = index">
+          <a routerLink='/{{category.routeName}}/{{category.categoryID}}' (click)="nextCountBoolean();">
+            <img [src]="category.categoryHomeScreenImage" onerror="this.src='assets/images/spaces.png'" height="225"
+              width="300" alt="Spaces">
+            <h2>{{category.categoryName}}</h2>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row" *ngIf="(categoryLists$ | async) === null">
+  <div class="col-md-3 col-sm-4 col-6">
+    <div class="card ">
+      <img class="card-img-top">
+      <div style="padding: 10px;" class="card-body text-center">
+        <div class="form-inline">
+          <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-4 col-6">
+    <div class="card ">
+      <img class="card-img-top">
+      <div style="padding: 10px;" class="card-body text-center">
+        <div class="form-inline">
+          <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-4 col-6">
+    <div class="card ">
+      <img class="card-img-top">
+      <div style="padding: 10px;" class="card-body text-center">
+        <div class="form-inline">
+          <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-4 col-6">
+    <div class="card ">
+      <img class="card-img-top">
+      <div style="padding: 10px;" class="card-body text-center">
+        <div class="form-inline">
+          <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section id="testi-area" class="testimoneial-section" *ngIf="deals$ | async as dealsInYourCity">
+  <div class="container">
+    <div class="heading">
+      <h2 *ngIf="labelData.length>0">{{labelData[0].HOT_DEALS_IN_YOUR_CITY}}</h2>
+    </div>
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let item of dealsInYourCity; let id = index" [id]="item.bannerID">
+        <div class="deals-items">
+          <div class="deals-img">
+            <a><img [src]="item.bannerFile" style="width: 393px; height: 168px;" (error)="handleImgError($event, id)"
+                class="" alt="Deals"></a>
+          </div>
+          <div class="deals-details">
+            <span class="lable-deals">{{item.bannerName}}</span>
+            <a>
+              <h4 class="mb-0"> Barbecued - By The Orchard</h4>
+            </a>
+            <p class="text-muted">Sadashiva Nagar</p>
+            <div class="client-comnt d-flex">
+              <div class="timer text-muted" *ngIf="labelData.length>0">
+                {{labelData[0].Expires_in + ":"}} <span class="timerlable" id="myclock4">{{message}}</span>
+              </div>
+              <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>
+
+<div class="container" *ngIf="(deals$ | async) === null">
+  <div class="row">
+    <div class="col-md-4 col-sm-4 col-6">
+      <div class="card ">
+        <img class="card-img-top">
+        <div style="padding: 10px;" class="card-body text-center">
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-6">
+      <div class="card ">
+        <img class="card-img-top">
+        <div style="padding: 10px;" class="card-body text-center">
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-6">
+      <div class="card ">
+        <img class="card-img-top">
+        <div style="padding: 10px;" class="card-body text-center">
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="bg other-deals" *ngIf="deals$ | async as otherDeals">
+  <div class="container">
+    <div class="heading">
+      <h2 *ngIf="labelData.length>0">{{labelData[0].Deal_of_the_day}}</h2>
+    </div>
+    <owl-carousel-o [options]="customOptions2">
+      <ng-template carouselSlide *ngFor="let item of otherDeals; let id = index" [id]="item.bannerID">
+        <div class="deals-items">
+          <div class="deals-img">
+            <a><img [src]="item.bannerFile" style="width: 393px; height: 168px;" (error)="handleImgError($event, id)"
+                class="" alt=" Deals"></a>
+          </div>
+          <div class="deals-details">
+            <span class="lable-deals">{{item.bannerName}}</span>
+            <a>
+              <h4 class="mb-0"> Republic Day Sale</h4>
+            </a>
+            <p class="text-muted">Sadashiva Nagar</p>
+            <div class="client-comnt d-flex">
+              <div class="timer text-muted" *ngIf="labelData.length>0">
+                {{labelData[0].Expires_On + " Today, 17:00" }}</div>
+              <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i> Yesterday</div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>
+
+<div class="container" *ngIf="(deals$ | async) === null">
+  <div class="row">
+    <div class="col-md-4 col-sm-4 col-6">
+      <div class="card ">
+        <img class="card-img-top">
+        <div style="padding: 10px;" class="card-body text-center">
+          <div class="form-inline">
+            <a class="btn btn-outline-primary mr-auto ml-auto"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-6">
+      <div class="card ">
+        <img class="card-img-top">
+        <div style="padding: 10px;" class="card-body text-center">
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-6">
+      <div class="card ">
+        <img class="card-img-top">
+        <div style="padding: 10px;" class="card-body text-center">
+          <div class="form-inline">
+            <a href="#" class="btn btn-outline-primary mr-auto ml-auto"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

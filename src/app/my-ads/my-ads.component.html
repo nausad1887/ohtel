@@ -1,0 +1,423 @@
+<div class="sparettop"></div>
+<div class="tabcab" *ngIf="labelData.length>0; else name">
+  <div class="container">
+    <div class="menu-myads">
+      <ul class="row m-0">
+        <li><a routerLink="/my-ads" routerLinkActive="active">{{labelData[0].My_ads}}</a></li>
+        <li><a routerLink="/favourites" routerLinkActive="active">{{labelData[0].Favourite}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<ng-template #name>
+  <div class="tabcab">
+    <div class="container">
+      <div class="menu-myads">
+        <div class="row">
+          <div class="col-1">
+            <p class="card-texted"></p>
+          </div>
+          <div class="col-1">
+            <p class="card-texted"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--start services area -->
+<section id="about-area" class="bg-light-gray">
+  <div class="container">
+    <div class="row pb-4">
+      <div class="col-lg-3 col-md-12" *ngIf="labelData.length>0; else category">
+        <h5 class="titlecard"><a href="#" id="fiter-shomobile" class="d-md-none"><i class="fas fa-filter"></i></a>
+          &nbsp; {{labelData[0].Filter}} </h5>
+        <div class="cartpay-conten card mb-3 filter-section-left">
+          <div class="filter-section category">
+            <h5 class="titlecard">Status</h5>
+            <div class="chekgroup pt-2">
+              <div class="custom-control custom-checkbox pb-3" *ngFor="let typ of status; let i = index">
+                <input type="checkbox" [checked]="typ === type" class="custom-control-input">
+                <label class="custom-control-label cursr" (click)="getType(typ)"> &nbsp;
+                  {{typ}}</label>
+              </div>
+            </div>
+            <br>
+            <h5 class="titlecard">{{labelData[0].Catagories}}</h5>
+            <form class="navbar-form " *ngIf="categoryLists.length>0">
+              <div class="chekgroup" *ngFor="let item of categoryLists; let i = index">
+                <div class="custom-control custom-checkbox pb-3">
+                  <input type="checkbox" [checked]="item.categoryID === categoryID" class="custom-control-input">
+                  <label class="custom-control-label cursr" (click)="getCategoryID(item.categoryID)"> &nbsp;
+                    {{item.categoryName | titlecase}}</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ng-template #category>
+        <div class="col-lg-3 col-md-12">
+          <h5 class="titlecard"><a href="#" id="fiter-shomobile" class="d-md-none"><i class="fas fa-filter"></i></a>
+            &nbsp; </h5>
+          <div class="cartpay-conten card mb-3 filter-section-left">
+            <div class="filter-section category">
+              <h5 class="card-title"></h5>
+              <div class="chekgroup pt-2">
+                <div class="custom-control custom-checkbox pb-3">
+                  <h3 class="pr-3 card-text"></h3>
+                  <h3 class="card-text"></h3>
+                  <h3 class="card-text"></h3>
+                  <h3 class="pr-3 card-text"></h3>
+                </div>
+              </div>
+              <br>
+              <h5 class="card-title"></h5>
+              <form class="navbar-form ">
+                <div class="chekgroup">
+                  <div class="custom-control custom-checkbox pb-3">
+                    <h3 class="pr-3 card-text"></h3>
+                    <h3 class="card-text"></h3>
+                    <h3 class="card-text"></h3>
+                    <h3 class="pr-3 card-text"></h3>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+      <div class="col-lg-9 col-md-12">
+        <div class="product-content" *ngIf="myPosts.length>0;">
+          <p class="status-lable text-muted mb-2" *ngIf="myPostsLive.length>0;">LIVE</p>
+
+          <!-- for spaces -->
+          <div class="row"
+            *ngIf="(myPostsLive.length > 0 && myPostsLive[0].categoryName === 'Spaces' && myPostsLive.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsLive | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <div class="deals-items card product-items">
+                <div class="deals-img">
+                  <a (click)="getIndexOfLive(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true}}<a class="btn cursr"
+                      (click)="getIndexOfLive(item.postID)">more</a>
+                  </p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">2200 sqft</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>
+                      {{item.postCreatedDate | date}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- for jobs -->
+          <div class="row"
+            *ngIf="(myPostsLive.length > 0 && myPostsLive[0].categoryName === 'Jobs' && myPostsLive.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsLive | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <div class="deals-items card product-items" *ngIf="(item.postType === 'Applicant')">
+                <div class="deals-img">
+                  <a (click)="getIndexOfLive(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3 mb-0">{{item.postDescription | truncate: 23 : true}}<a class="btn cursr"
+                      (click)="getIndexOfLive(item.postID)">more</a></p>
+                  <p>{{item.postotherFirstName + " " + item.postotherLastName}}</p>
+                  <div class="mb-1"><a href="#"><i class="fas fa-briefcase"></i></a>
+                    {{item.postotherYearExp}}
+                  </div>
+                  <div class="mb-1"><a href="#"><i class="fas fa-graduation-cap"></i></a>
+                    {{item.educationName}}</div>
+                  <div class="mb-1"><a href="#"><i class="fas fa-hand-holding-usd"></i></a>
+                    <small class="fas fa-rupee-sign"></small> {{item.postotherSalary}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">{{item.cityName}}</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>{{item.postCreatedDate | date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="deals-items card product-items" *ngIf="(item.postType === 'Recruiter')">
+                <div class="deals-img">
+                  <img src="assets/images/walk_in_tag.png" alt="lable" class="walking-lable">
+                  <a (click)="getIndexOfLive(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true }}<a class="btn cursr"
+                      (click)="getIndexOfLive(item.postID)">more</a></p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="mb-2">Time: From 12:30 PM to 03:00 PM</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">Date: Sept 04, 2020</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>{{item.postCreatedDate | date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- for used-equipments -->
+          <div class="row"
+            *ngIf="(myPostsLive.length > 0 && myPostsLive[0].categoryName === 'Used Equipments' && myPostsLive.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsLive | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <div class="deals-items card product-items">
+                <div class="deals-img">
+                  <a (click)="getIndexOfLive(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true }}<a class="btn cursr"
+                      (click)="getIndexOfLive(item.postID)">more</a></p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">2200 sqft</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>{{item.postCreatedDate | date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- for deals -->
+          <div class="row"
+            *ngIf="(myPostsLive.length > 0 && myPostsLive[0].categoryName === 'Deals' && myPostsLive.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsLive | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <div class="deals-items card product-items">
+                <div class="deals-img">
+                  <a (click)="getIndexOfLive(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true}}<a class="btn cursr"
+                      (click)="getIndexOfLive(item.postID)">more</a>
+                  </p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">2200 sqft</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>
+                      {{item.postCreatedDate | date}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ngb-pagination class="d-flex justify-content-end" *ngIf="myPostsLive.length>6"
+            [collectionSize]="myPostsLive.length" [pageSize]="pageSize" [(page)]="page">
+          </ngb-pagination>
+
+
+
+          <p class="status-lable text-muted mb-2" *ngIf="myPostsPast.length>0;">PAST</p>
+
+          <!-- for spaces -->
+          <div class="row"
+            *ngIf="(myPostsPast.length > 0 && myPostsPast[0].categoryName === 'Spaces' && myPostsPast.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsPast | slice: (pagePast-1) * pageSize : (pagePast-1) * pageSize + pageSize">
+              <div class="deals-items card product-items">
+                <div class="deals-img">
+                  <a (click)="getIndexOfPast(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true}} <a class="btn cursr"
+                      (click)="getIndexOfPast(item.postID)">more</a>
+                  </p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">2200 sqft</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>
+                      {{item.postCreatedDate | date}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- for jobs -->
+          <div class="row"
+            *ngIf="(myPostsPast.length > 0 && myPostsPast[0].categoryName === 'Jobs' && myPostsPast.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsPast | slice: (pagePast-1) * pageSize : (pagePast-1) * pageSize + pageSize">
+
+              <div class="deals-items card product-items" *ngIf="(item.postType === 'Applicant')">
+                <div class="deals-img">
+                  <a (click)="getIndexOfPast(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3 mb-0">{{item.postDescription | truncate: 23 : true}}<a class="btn cursr"
+                      (click)="getIndexOfPast(item.postID)">more</a></p>
+                  <p>{{item.postotherFirstName + " " + item.postotherLastName}}</p>
+                  <div class="mb-1"><a href="#"><i class="fas fa-briefcase"></i></a>
+                    {{item.postotherYearExp}}
+                  </div>
+                  <div class="mb-1"><a href="#"><i class="fas fa-graduation-cap"></i></a>
+                    {{item.educationName}}</div>
+                  <div class="mb-1"><a href="#"><i class="fas fa-hand-holding-usd"></i></a>
+                    <small class="fas fa-rupee-sign"></small> {{item.postotherSalary}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">{{item.cityName}}</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>{{item.postCreatedDate | date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="deals-items card product-items" *ngIf="(item.postType === 'Recruiter')">
+                <div class="deals-img">
+                  <img src="assets/images/walk_in_tag.png" alt="lable" class="walking-lable">
+                  <a (click)="getIndexOfPast(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true }}<a class="btn cursr"
+                      (click)="getIndexOfPast(item.postID)">more</a></p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="mb-2">Time: From 12:30 PM to 03:00 PM</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">Date: Sept 04, 2020</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>{{item.postCreatedDate | date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- for used-equipments -->
+          <div class="row"
+            *ngIf="(myPostsPast.length > 0 && myPostsPast[0].categoryName === 'Used Equipments' && myPostsPast.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsPast | slice: (pagePast-1) * pageSize : (pagePast-1) * pageSize + pageSize ">
+              <div class="deals-items card product-items">
+                <div class="deals-img">
+                  <a (click)="getIndexOfPast(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true }}<a class="btn cursr"
+                      (click)="getIndexOfPast(item.postID)">more</a></p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">2200 sqft</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>{{item.postCreatedDate | date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- for deals -->
+          <div class="row"
+            *ngIf="(myPostsPast.length > 0 && myPostsPast[0].categoryName === 'Deals' && myPostsPast.length>0)">
+            <div class="col-md-4 col-sm-6"
+              *ngFor="let item of myPostsPast | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <div class="deals-items card product-items">
+                <div class="deals-img">
+                  <a (click)="getIndexOfPast(item.postID)"><img
+                      src="http://betaapplication.com/ohtel/backend/web/uploads/{{item.userID}}/{{item.homeImage}}"
+                      onerror="this.src='assets/images/no-image.png';" class="cursr" alt="Deals"></a>
+                </div>
+                <div class="deals-details">
+                  <a class="favorite" [class.favorited]="item.IsYourFavorite === 'Yes'" href="javascript:voild(0)"><i
+                      (click)="postFavourites(item)" class="fas fa-heart"></i></a>
+                  <p class="pr-3">{{item.postDescription | truncate: 23 : true}}<a class="btn cursr"
+                      (click)="getIndexOfPast(item.postID)">more</a>
+                  </p>
+                  <div class="text-muted mb-2">{{item.locationName}}</div>
+                  <div class="client-comnt d-flex">
+                    <div class="timer ">2200 sqft</div>
+                    <div class="ml-auto sheduald text-muted"><i class="far fa-clock"></i>
+                      {{item.postCreatedDate | date}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ngb-pagination class="d-flex justify-content-end" *ngIf="myPostsPast.length>6"
+            [collectionSize]="myPostsPast.length" [pageSize]="pageSize" [(page)]="pagePast">
+          </ngb-pagination>
+        </div>
+        <!-- loader -->
+        <div class="product-content" *ngIf="myPosts.length === 0 && loading">
+          <div class="row">
+            <div class="col-2">
+              <h3 class="card-text mb-2 status-lable"></h3>
+            </div>
+          </div>
+          <app-my-ads-skeleton></app-my-ads-skeleton>
+          <div class="row">
+            <div class="col-2">
+              <h3 class="card-text mb-2 status-lable"></h3>
+            </div>
+          </div>
+          <app-my-ads-skeleton></app-my-ads-skeleton>
+        </div>
+        <!-- loader -->
+
+        <!-- no record found -->
+        <div class="product-content" *ngIf="myPosts.length === 0 && noRecordFound">
+          <div class="row">
+            <div class="col" style="margin-top: 50px;">
+              <p class="text-center">No Record Found.</p>
+            </div>
+          </div>
+        </div>
+        <!-- no record found -->
+      </div>
+    </div>
+  </div>
+
+
+</section>
+<!-- end servicrs area -->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

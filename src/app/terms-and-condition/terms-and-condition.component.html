@@ -1,0 +1,30 @@
+<div class="sparettop"></div>
+<div class="tabcab">
+  <div class="container" *ngIf="innnerHTML$ | async as cmsContent">
+    <div class="tabcabitem"> <span style="font-weight:bold">{{cmsContent[0].cmspageName | titlecase}}</span> </div>
+  </div>
+</div>
+
+<!--start services area-->
+<section id="product-list-section" class="pt-3 bg-light-gray">
+  <div class="container" *ngIf="innnerHTML$ | async as cmsContent">
+    <div class="about-page" [innerHTML]="cmsContent[0].cmspageContents | privacy">
+    </div>
+  </div>
+  <div class="container" *ngIf="(innnerHTML$ | async) === null">
+    <div class="row" style="margin-top: 40px;">
+      <div class="col">
+        <p class="text-center">Loading...</p>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="(innnerHTML$ | async) === undefined">
+    <div class="row" style="margin-top: 40px;">
+      <div class="col">
+        <p class="text-center">No Content Found.</p>
+      </div>
+    </div>
+  </div>
+  <br>
+</section>
+<!--end servicrs area-->

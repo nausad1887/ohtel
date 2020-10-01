@@ -1,0 +1,5 @@
+<app-navbar *ngIf="isHome"></app-navbar>
+<app-users-navbar *ngIf="isUser"></app-users-navbar>
+<app-shared-category *ngIf="isShow"></app-shared-category>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
+<app-footer></app-footer>
